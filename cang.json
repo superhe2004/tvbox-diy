@@ -1,0 +1,96 @@
+{
+    "storeHouse": [
+        {
+            "sourceName": "饭太硬",
+            "sourceUrl": "http://www.饭太硬.net/tv"
+        },
+        {
+            "sourceName": "肥猫",
+            "sourceUrl": "http://肥猫.net"
+        },
+        {
+            "sourceName": "摸鱼儿",
+            "sourceUrl": "http://我不是.摸鱼儿.top"
+        },
+        {
+            "sourceName": "王二小放牛娃",
+            "sourceUrl": "http://tvbox.王二小放牛娃.top"
+        },
+        {
+            "sourceName": "王二小放牛娃新",
+            "sourceUrl": "https://9280.kstore.vip/newwex.json"
+        },
+        {
+            "sourceName": "动漫城",
+            "sourceUrl": "https://www.yingm.cc/dm/dm.json"
+        },
+        {
+            "sourceName": "俊佬",
+            "sourceUrl": "http://home.jundie.top:81/top98.json"
+        },
+        {
+            "sourceName": "道长",
+            "sourceUrl": "https://cdn.gitmirror.com/bb/xduo/libs/master/index.json"
+        },
+        {
+            "sourceName": "南风",
+            "sourceUrl": "https://raw.githubusercontent.com/yoursmile66/TVBox/main/XC.json"
+        },
+        {
+            "sourceName": "菜妮丝",
+            "sourceUrl": "https://tv.菜妮丝.top"
+        },
+        {
+            "sourceName": "HG",
+            "sourceUrl": "https://api.hgyx.vip/hgyx.json"
+        },
+        {
+            "sourceName": "dxawi",
+            "sourceUrl": "https://dxawi.github.io/0/0.json"
+        },
+        {
+            "sourceName": "小盒子单仓",
+            "sourceUrl": "http://xhztv.top/xhz"
+        },
+        {
+            "sourceName": "小盒子4K",
+            "sourceUrl": "http://xhztv.top/4k.json"
+        },
+        {
+            "sourceName": "香雅情",
+            "sourceUrl": "https://raw.githubusercontent.com/xyq254245/xyqonlinerule/main/XYQTVBox.json"
+        },
+        {
+            "sourceName": "宝盒VIP",
+            "sourceUrl": "https://raw.githubusercontent.com/guot55/YGBH/main/vip2.json"
+        },
+        {
+            "sourceName": "真心",
+            "sourceUrl": "https://www.252035.xyz/z/FongMi.json"
+        },
+        {
+            "sourceName": "高天流云",
+            "sourceUrl": "https://raw.githubusercontent.com/gaotianliuyun/gao/master/js.json"
+        },
+        {
+            "sourceName": "分享",
+            "sourceUrl": "https://raw.githubusercontent.com/maoystv/6/main/000.json"
+        },
+        {
+            "sourceName": "短剧频道",
+            "sourceUrl": "http://box.ufuzi.com/tv/qq/短剧频道/api.json"
+        },
+        {
+            "sourceName": "东篱线路",
+            "sourceUrl": "https://raw.githubusercontent.com/chitue/dongliTV/main/api.json"
+        },
+        {
+            "sourceName": "嗷呜线路",
+            "sourceUrl": "https://9763.kstore.vip/aowu.json"
+        },
+        {
+            "sourceName": "L佬线路",
+            "sourceUrl": "https://android.lushunming.qzz.io/json/index.json"
+        }
+    ]
+}
