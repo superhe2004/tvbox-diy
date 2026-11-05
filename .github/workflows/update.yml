@@ -42,6 +42,10 @@ jobs:
       - name: 生成多仓清单
         run: node scripts/build.mjs
 
+      - name: 生成可用多仓清单
+        run: node scripts/build-all.mjs
+        continue-on-error: true
+
       - name: 生成自托管单仓配置
         run: node scripts/build-self.mjs
 
