@@ -9,6 +9,10 @@ on:
     branches: [main]
     paths:
       - 'config/apis.json'
+      - 'config/self-sites.json'
+      - 'js/**'
+      - 'lib/**'
+      - 'spider/**'
       - 'scripts/**'
       - '.github/workflows/update.yml'
 
@@ -37,6 +41,9 @@ jobs:
 
       - name: 生成多仓清单
         run: node scripts/build.mjs
+
+      - name: 生成自托管单仓配置
+        run: node scripts/build-self.mjs
 
       - name: 提交变更
         run: |
