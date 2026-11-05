@@ -9,16 +9,16 @@
  *   - spider/pg.jar        爬虫 JAR
  *
  * 用法：node scripts/build-self.mjs
- * 可换域名：SELF_BASE=https://tv.example.com node scripts/build-self.mjs
+ * 默认基准域名 https://tvbox.kyovpn.dpdns.org（Cloudflare Worker 通用转发），
+ * 如需临时换地址：SELF_BASE=https://xxx node scripts/build-self.mjs
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 
-const REPO = process.env.TVBOX_REPO || 'superhe2004/tvbox-diy';
-const BRANCH = process.env.TVBOX_BRANCH || 'main';
-const BASE = (process.env.SELF_BASE || 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH).replace(/\/+$/, '');
+const SELF_DOMAIN = 'https://tvbox.kyovpn.dpdns.org';
+const BASE = (process.env.SELF_BASE || SELF_DOMAIN).replace(/\/+$/, '');
 
 const ROOT = process.cwd();
 const JAR_PATH = path.join(ROOT, 'spider', 'pg.jar');

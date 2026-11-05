@@ -13,7 +13,7 @@
 
 const COOKIE_NAME = 'tvbox_editor_auth';
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60;
-const DEFAULT_CONFIG_URL = 'https://raw.githubusercontent.com/superhe2004/tvbox-diy/main/output/shiguang.json';
+const DEFAULT_CONFIG_URL = 'https://tvbox.kyovpn.dpdns.org/';
 const MIRROR_PREFIXES = ['https://gh-proxy.com/', 'https://ghfast.top/'];
 const PROBE_TIMEOUT = 12000;
 const MAX_BODY = 4 * 1024 * 1024;
