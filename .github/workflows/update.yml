@@ -1,0 +1,51 @@
+name: 自动更新多仓接口
+
+on:
+  schedule:
+    # 每天 UTC 02:00（北京时间 10:00）自动检测并重建
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'config/apis.json'
+      - 'scripts/**'
+      - '.github/workflows/update.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-config
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 配置 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 检测上游接口可用性
+        run: node scripts/check.mjs
+        continue-on-error: true
+
+      - name: 生成多仓清单
+        run: node scripts/build.mjs
+
+      - name: 提交变更
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain output)" ]; then
+            git add output
+            git commit -m "chore: 自动更新 $(date -u +%F)"
+            git push
+          else
+            echo "无变更，跳过提交"
+          fi
