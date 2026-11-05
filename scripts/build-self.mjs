@@ -59,6 +59,7 @@ fs.writeFileSync(ENGINE_OUT, enginePatched, 'utf8');
 
 // 2. 逐条校验站点规则文件是否存在
 const metas = JSON.parse(fs.readFileSync(SITES_FILE, 'utf8'));
+const filesOnDisk = new Set(fs.readdirSync(path.join(ROOT, 'js')));
 const sites = [];
 const missing = [];
 const usedKeys = new Set();
@@ -66,7 +67,8 @@ const usedKeys = new Set();
 for (const meta of metas) {
   const ext = String(meta.ext || '');
   if (!ext.startsWith('js/')) continue;
-  if (!fs.existsSync(path.join(ROOT, ext))) {
+  const fileName = ext.slice('js/'.length);
+  if (!filesOnDisk.has(fileName)) {
     missing.push(ext);
     continue;
   }
