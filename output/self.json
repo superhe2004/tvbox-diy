@@ -2760,10 +2760,451 @@
       "quickSearch": 1,
       "filterable": 1,
       "changeable": 1
+    },
+    {
+      "key": "cj_e4b80747",
+      "name": "采集 | 星夜",
+      "type": 1,
+      "api": "https://xyezy.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_21b0b49e",
+      "name": "采集 | 看看",
+      "type": 1,
+      "api": "https://f-1.cc/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_38cf5286",
+      "name": "采集 | 新芒果",
+      "type": 1,
+      "api": "https://caiji.mgzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_f361c235",
+      "name": "采集 | 巨量",
+      "type": 1,
+      "api": "https://api.juliang.live/api/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_a56a2474",
+      "name": "采集 | 黑料",
+      "type": 1,
+      "api": "https://www.heiliaozyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_596e2d94",
+      "name": "采集 | 黑料",
+      "type": 1,
+      "api": "https://heiliaozyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_450b994c",
+      "name": "采集 | 速播",
+      "type": 1,
+      "api": "https://subocj.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_27bc68f7",
+      "name": "采集 | 虎牙资源采集网",
+      "type": 1,
+      "api": "https://www.huyaapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_b6b3fe56",
+      "name": "采集 | 爱奇艺",
+      "type": 1,
+      "api": "https://www.iqiyizyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_daf71071",
+      "name": "采集 | 奶香香",
+      "type": 1,
+      "api": "https://Naixxzy.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_a32d77a1",
+      "name": "采集 | 奶香香",
+      "type": 1,
+      "api": "https://naixxzy.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_d0b2eb94",
+      "name": "采集 | 奥斯卡资源API",
+      "type": 1,
+      "api": "https://aosikazy.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_ccf2a73c",
+      "name": "采集 | 玉兔",
+      "type": 1,
+      "api": "https://apiyutu.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_07cd20c6",
+      "name": "采集 | 厂长",
+      "type": 1,
+      "api": "https://api.changzhang.tv/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_b876b31c",
+      "name": "采集 | 大众",
+      "type": 1,
+      "api": "https://cdn.dzzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_23388f32",
+      "name": "采集 | 西瓜",
+      "type": 1,
+      "api": "https://caiji.xgzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_04db3e10",
+      "name": "采集 | 无水印",
+      "type": 1,
+      "api": "https://api.wsyzy.net/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_ccc23378",
+      "name": "采集 | OK资源采集网",
+      "type": 1,
+      "api": "http://api.okzyw.net/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_a1bcf0df",
+      "name": "采集 | 天涯影视",
+      "type": 1,
+      "api": "https://tyyszyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_4b5a61e3",
+      "name": "采集 | 牛牛",
+      "type": 1,
+      "api": "https://api.niuniuzy.me/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "cj_1b44f578",
+      "name": "采集 | 大地",
+      "type": 1,
+      "api": "https://dadiapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
     }
   ],
   "lives": [],
-  "parses": [],
+  "parses": [
+    {
+      "name": "星夜资源站播放解析地址",
+      "type": 0,
+      "url": "https://xyzybfq.com/?url="
+    },
+    {
+      "name": "看看资源解析接口",
+      "type": 0,
+      "url": "https://jiexi.f-1.cc/index.php?url="
+    },
+    {
+      "name": "厂长资源解析接口",
+      "type": 0,
+      "url": "https://svip.czzyplay.com/?url="
+    },
+    {
+      "name": "新芒果资源网解析接口",
+      "type": 0,
+      "url": "https://svip.mgzym3u8.com/?url="
+    },
+    {
+      "name": "大众资源解析地址",
+      "type": 0,
+      "url": "https://api.dzzybf.com/m3u8/?url="
+    },
+    {
+      "name": "西瓜资源M3U8解析接口",
+      "type": 0,
+      "url": "https://svip.xgzyplay.com/?url="
+    },
+    {
+      "name": "无水印资源网解析播放接口",
+      "type": 0,
+      "url": "https://wsyzy.top/m3u8/?url="
+    },
+    {
+      "name": "优质资源库DP播放器解析接口",
+      "type": 0,
+      "url": "https://vip.zykbf.com/?url="
+    },
+    {
+      "name": "黑料资源网无广告解析接口",
+      "type": 0,
+      "url": "https://www.heiliaozyjx.com/?url="
+    },
+    {
+      "name": "虎牙资源M3u8解析接口",
+      "type": 0,
+      "url": "https://huyajx.com/play?url="
+    },
+    {
+      "name": "789免费无广告解析接口",
+      "type": 0,
+      "url": "https://jx.789jiexi.com/?url="
+    },
+    {
+      "name": "猫眼资源站无广告解析",
+      "type": 0,
+      "url": "https://jx.maoyanjx.top/player/?url="
+    },
+    {
+      "name": "天涯影视资源网M3U8资源专属解析",
+      "type": 0,
+      "url": "https://tyyszywjx.com/?url="
+    },
+    {
+      "name": "爱奇艺资源站M3U8解析接口",
+      "type": 0,
+      "url": "https://www.iqiyizyjx.com/?url="
+    },
+    {
+      "name": "电影天堂m3u8解析接口",
+      "type": 0,
+      "url": "https://vip.dyttzyplay.com/?url="
+    },
+    {
+      "name": "maccmspro官方播放解析器",
+      "type": 0,
+      "url": "https://jx.pingguocms.com/dplayer/?url="
+    },
+    {
+      "name": "如意资源网M3U8视频解析",
+      "type": 0,
+      "url": "https://ryplayer.com?url="
+    },
+    {
+      "name": "金鹰资源网M3u8解析接口",
+      "type": 0,
+      "url": "https://hd.iapijy.com/play?url="
+    },
+    {
+      "name": "魔都动漫资源采集网M3U8解析接口",
+      "type": 0,
+      "url": "https://jiexi.modujx01.com/?url="
+    },
+    {
+      "name": "鸭鸭（丫丫）资源网加速解析播放器",
+      "type": 0,
+      "url": "https://jx.yayazy.cc/m3u8/?url="
+    },
+    {
+      "name": "牛牛资源网P2P商业加速解析播放器",
+      "type": 0,
+      "url": "https://jiexi.niuniuzy.org/m3u8/?url="
+    },
+    {
+      "name": "玉兔资源网解析接口",
+      "type": 0,
+      "url": "https://yutujx.com/?url="
+    },
+    {
+      "name": "M1907云加速播放器",
+      "type": 0,
+      "url": "https://im1907.top/?jx="
+    },
+    {
+      "name": "虾米解析-全网最稳定解析接口",
+      "type": 0,
+      "url": "https://jx.xmflv.com/?url="
+    },
+    {
+      "name": "七哥解析免费VIP剧场解析接口",
+      "type": 0,
+      "url": "https://jx.nnxv.cn/tv.php?url="
+    },
+    {
+      "name": "m3u8在线播放器",
+      "type": 0,
+      "url": "https://m3u8-player.com/"
+    },
+    {
+      "name": "360资源站弹幕解析播放器（无广告 娱乐专用）",
+      "type": 0,
+      "url": "https://www.360jiexi.com/player/?url="
+    },
+    {
+      "name": "豪华资源网M3U8纯净视频播放器接口",
+      "type": 0,
+      "url": "https://hhzyjiexi.com/play/?url="
+    },
+    {
+      "name": "极速资源网M3U8播放器解析接口",
+      "type": 0,
+      "url": "https://jsjiexi.com/play/?url="
+    },
+    {
+      "name": "暴风资源网M3U8解析接口",
+      "type": 0,
+      "url": "https://bfzyplayer.com/player/?url="
+    },
+    {
+      "name": "速播资源M3U8纯净解析接口",
+      "type": 0,
+      "url": "https://subojiexi.com/play/?url="
+    },
+    {
+      "name": "大地资源网通用M3U8解析接口",
+      "type": 0,
+      "url": "https://play.dadiapi.com/watch?url="
+    },
+    {
+      "name": "奥斯卡资源站M3U8解析接口",
+      "type": 0,
+      "url": "https://aosikazy11.com/?url="
+    },
+    {
+      "name": "ikun资源网解析地址",
+      "type": 0,
+      "url": "https://www.ikdmjx.com/?url="
+    },
+    {
+      "name": "新浪资源M3U8视频解析",
+      "type": 0,
+      "url": "https://www.xinlangjiexi.com/m3u8/?url="
+    },
+    {
+      "name": "量子资源网M3U8视频解析",
+      "type": 0,
+      "url": "https://lziplayer.com/?url="
+    },
+    {
+      "name": "光速资源站M3U8国内P2P商业加速解析接口",
+      "type": 0,
+      "url": "https://www.gszyv.com/m3u8/?url="
+    },
+    {
+      "name": "盘古VIP视频解析接口",
+      "type": 0,
+      "url": "https://www.pangujiexi.com/pangu/?url="
+    },
+    {
+      "name": "无尽资源网M3U8专用解析接口",
+      "type": 0,
+      "url": "https://jx.wujinkk.com/dplayer/?url="
+    },
+    {
+      "name": "M3U8TV无广告无加密解析接口",
+      "type": 0,
+      "url": "https://jx.m3u8.tv/jiexi/?url="
+    },
+    {
+      "name": "盘古解析,老牌解析平台",
+      "type": 0,
+      "url": "https://www.pangujiexi.com/jiexi/?url="
+    },
+    {
+      "name": "DMPlayer免费解析播放器",
+      "type": 0,
+      "url": "https://dmplay.knowhub.vip/d?url="
+    },
+    {
+      "name": "非凡资源网m3u8解析接口",
+      "type": 0,
+      "url": "https://ffzyplayer.com/?url="
+    },
+    {
+      "name": "17kyun全能VIP视频解析接口",
+      "type": 0,
+      "url": "http://17kyun.com/api.php?url="
+    },
+    {
+      "name": "红牛P2P商业加速解析接口",
+      "type": 0,
+      "url": "https://www.hnjiexi.com/m3u8/?url="
+    },
+    {
+      "name": "1717云解析[需要代理]",
+      "type": 0,
+      "url": "https://www.1717yun.com/jiexi/?url="
+    }
+  ],
   "flags": [],
   "ads": [],
   "wallpaper": ""

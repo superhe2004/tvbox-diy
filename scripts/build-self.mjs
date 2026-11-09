@@ -128,10 +128,24 @@ if (fs.existsSync(CAIJI_FILE)) {
 // 3. 输出配置
 // 默认不带 spider：站点全是 drpy JS 规则，JAR 只会拖慢配置拉取。
 const includeSpider = process.env.INCLUDE_SPIDER === '1';
+
+// 解析接口（config/jiexi.json，由 sync-yszzq.mjs 生成）
+// TVBox parses 格式：type 0 = 网页嗅探解析（?url= 形式）
+const JIEXI_FILE = path.join(ROOT, 'config', 'jiexi.json');
+let parses = [];
+if (fs.existsSync(JIEXI_FILE)) {
+  const jiexi = JSON.parse(fs.readFileSync(JIEXI_FILE, 'utf8'));
+  parses = jiexi.map((j, i) => ({
+    name: String(j.name || '解析' + (i + 1)),
+    type: 0,
+    url: String(j.url),
+  }));
+}
+
 const config = {
   sites,
   lives: [],
-  parses: [],
+  parses,
   flags: [],
   ads: [],
   wallpaper: '',
@@ -144,5 +158,5 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 fs.writeFileSync(OUT_FILE, JSON.stringify(config, null, 2) + '\n', 'utf8');
 
 console.log('基准地址: ' + BASE);
-console.log('站点: ' + sites.length + ' 条（JS ' + (sites.length - caijiCount) + ' + 采集 ' + caijiCount + '）' + (missing.length ? '，跳过缺失规则 ' + missing.length + ' 条' : ''));
+console.log('站点: ' + sites.length + ' 条（JS ' + (sites.length - caijiCount) + ' + 采集 ' + caijiCount + '），解析 ' + parses.length + ' 条' + (missing.length ? '，跳过缺失规则 ' + missing.length + ' 条' : ''));
 console.log('输出: output/self.json（' + (fs.statSync(OUT_FILE).size / 1024).toFixed(1) + ' KB）');
