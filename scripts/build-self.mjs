@@ -97,6 +97,34 @@ for (const meta of metas) {
   sites.push(site);
 }
 
+// 2.5 合并采集站（config/caiji-sites.json，由 sync-caiji.mjs 生成）
+// 这些是第三方 maccms API，type 0/1 透传，不加 drpy 包装，排在 JS 站点之后。
+const CAIJI_FILE = path.join(ROOT, 'config', 'caiji-sites.json');
+let caijiCount = 0;
+if (fs.existsSync(CAIJI_FILE)) {
+  const caijiList = JSON.parse(fs.readFileSync(CAIJI_FILE, 'utf8'));
+  for (const cj of caijiList) {
+    let key = String(cj.key || '');
+    if (!key) key = 'cj_' + crypto.createHash('md5').update(String(cj.api)).digest('hex').slice(0, 8);
+    let unique = key;
+    let n = 2;
+    while (usedKeys.has(unique)) unique = key + '_' + n++;
+    usedKeys.add(unique);
+
+    sites.push({
+      key: unique,
+      name: String(cj.name || unique),
+      type: Number(cj.type ?? 0),
+      api: String(cj.api),
+      searchable: Number(cj.searchable ?? 1),
+      quickSearch: Number(cj.quickSearch ?? 1),
+      filterable: Number(cj.filterable ?? 1),
+      changeable: Number(cj.changeable ?? 1),
+    });
+    caijiCount++;
+  }
+}
+
 // 3. 输出配置
 // 默认不带 spider：站点全是 drpy JS 规则，JAR 只会拖慢配置拉取。
 const includeSpider = process.env.INCLUDE_SPIDER === '1';
@@ -116,5 +144,5 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 fs.writeFileSync(OUT_FILE, JSON.stringify(config, null, 2) + '\n', 'utf8');
 
 console.log('基准地址: ' + BASE);
-console.log('站点: ' + sites.length + ' 条' + (missing.length ? '，跳过缺失规则 ' + missing.length + ' 条' : ''));
+console.log('站点: ' + sites.length + ' 条（JS ' + (sites.length - caijiCount) + ' + 采集 ' + caijiCount + '）' + (missing.length ? '，跳过缺失规则 ' + missing.length + ' 条' : ''));
 console.log('输出: output/self.json（' + (fs.statSync(OUT_FILE).size / 1024).toFixed(1) + ' KB）');
