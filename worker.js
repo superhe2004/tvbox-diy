@@ -32,6 +32,7 @@ const ROUTES = {
   '/all.json': 'output/all.json',
   '/shiguang.json': 'output/shiguang.json',
   '/self.json': 'output/self.json',
+  '/lite.json': 'output/self-lite.json',
   '/health.json': 'output/health.json',
   '/cang.json': 'cang.json',
 };

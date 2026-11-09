@@ -30,6 +30,7 @@ const ENGINE_SRC = path.join(ROOT, 'lib', 'drpy.src.js');
 const ENGINE_OUT = path.join(ROOT, 'lib', 'drpy.js');
 const OUT_DIR = path.join(ROOT, 'output');
 const OUT_FILE = path.join(OUT_DIR, 'self.json');
+const LITE_FILE = path.join(OUT_DIR, 'self-lite.json');
 
 function encodePath(relPath) {
   return relPath.split('/').map(encodeURIComponent).join('/');
@@ -156,6 +157,13 @@ if (includeSpider && fs.existsSync(JAR_PATH)) {
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 fs.writeFileSync(OUT_FILE, JSON.stringify(config, null, 2) + '\n', 'utf8');
+
+// 4. 精简版 output/self-lite.json：只保留采集站（type 0/1）+ 解析接口。
+// 采集站是纯 HTTP API，不需要 JS 引擎 / spider JAR，App 加载与搜索都快，
+// 不会因 220 个 drpy 规则并发初始化导致「拉取失败 / 内存溢出重启」。
+const liteSites = sites.filter((s) => s.type === 0 || s.type === 1);
+const liteConfig = { sites: liteSites, lives: [], parses, flags: [], ads: [], wallpaper: '' };
+fs.writeFileSync(LITE_FILE, JSON.stringify(liteConfig, null, 2) + '\n', 'utf8');
 
 console.log('基准地址: ' + BASE);
 console.log('站点: ' + sites.length + ' 条（JS ' + (sites.length - caijiCount) + ' + 采集 ' + caijiCount + '），解析 ' + parses.length + ' 条' + (missing.length ? '，跳过缺失规则 ' + missing.length + ' 条' : ''));
