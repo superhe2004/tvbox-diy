@@ -6,7 +6,10 @@
  *   - lib/模板.js          drpy 模板库
  *   - lib/cheerio.min.js   HTML 解析库
  *   - js/*.js              各站点规则（来自 config/self-sites.json）
- *   - spider/pg.jar        爬虫 JAR
+ *
+ * 说明：本配置内 219 个站点全部是 type=3 的 drpy JS 规则，不依赖 spider JAR。
+ * 因此默认不输出 spider 字段，避免 App 在拉取配置时额外下载 2.6MB 的 pg.jar
+ * 导致「拉取配置失败」误报或加载缓慢。确需附带 JAR 时：INCLUDE_SPIDER=1
  *
  * 用法：node scripts/build-self.mjs
  * 默认基准域名 https://tvbox.kyovpn.dpdns.org（Cloudflare Worker 通用转发），
@@ -95,8 +98,9 @@ for (const meta of metas) {
 }
 
 // 3. 输出配置
+// 默认不带 spider：站点全是 drpy JS 规则，JAR 只会拖慢配置拉取。
+const includeSpider = process.env.INCLUDE_SPIDER === '1';
 const config = {
-  spider: fileUrl('spider/pg.jar') + ';md5;' + md5(JAR_PATH),
   sites,
   lives: [],
   parses: [],
@@ -104,6 +108,9 @@ const config = {
   ads: [],
   wallpaper: '',
 };
+if (includeSpider && fs.existsSync(JAR_PATH)) {
+  config.spider = fileUrl('spider/pg.jar') + ';md5;' + md5(JAR_PATH);
+}
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 fs.writeFileSync(OUT_FILE, JSON.stringify(config, null, 2) + '\n', 'utf8');
