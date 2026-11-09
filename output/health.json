@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-11-09T00:46:41.445Z",
+  "checkedAt": "2026-11-09T08:45:20.197Z",
   "stats": {
     "total": 53,
-    "ok": 23,
-    "fail": 30
+    "ok": 24,
+    "fail": 29
   },
   "items": [
     {
@@ -11,7 +11,7 @@
       "url": "https://raw.githubusercontent.com/guot55/yg/main/pg/bh.json",
       "ok": true,
       "status": 206,
-      "ms": 144,
+      "ms": 291,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -21,7 +21,7 @@
       "url": "http://tjf1100.serv00.net/",
       "ok": true,
       "status": 206,
-      "ms": 2257,
+      "ms": 5610,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -31,7 +31,7 @@
       "url": "https://www.yingm.cc/dm/dm.json",
       "ok": true,
       "status": 206,
-      "ms": 2013,
+      "ms": 704,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -41,7 +41,7 @@
       "url": "http://jiduo.3116598.xyz",
       "ok": true,
       "status": 200,
-      "ms": 1351,
+      "ms": 1640,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -51,7 +51,17 @@
       "url": "https://yydsys.top/duo",
       "ok": true,
       "status": 200,
-      "ms": 1228,
+      "ms": 1943,
+      "error": null,
+      "permanent": false,
+      "failCount": 0
+    },
+    {
+      "name": "二小",
+      "url": "http://tvbox.王二小放牛娃.top",
+      "ok": true,
+      "status": 206,
+      "ms": 2234,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -61,7 +71,7 @@
       "url": "http://hucongrong.web3v.work/风水/fxz/fxz.json",
       "ok": true,
       "status": 206,
-      "ms": 1359,
+      "ms": 1231,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -71,7 +81,7 @@
       "url": "https://qu.ax/uanw.json",
       "ok": true,
       "status": 200,
-      "ms": 1591,
+      "ms": 1792,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -81,7 +91,7 @@
       "url": "https://gitlab.com/lzc1021lzc/hjfggzs.hjys/-/raw/main/hjys.free.json",
       "ok": true,
       "status": 206,
-      "ms": 1475,
+      "ms": 4887,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -91,7 +101,7 @@
       "url": "http://home.jundie.top:81/top98.json",
       "ok": true,
       "status": 206,
-      "ms": 956,
+      "ms": 1321,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -101,7 +111,7 @@
       "url": "https://raw.githubusercontent.com/n3rddd/N3RD/master/JN/lemj.json",
       "ok": true,
       "status": 206,
-      "ms": 133,
+      "ms": 780,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -111,7 +121,7 @@
       "url": "https://龙伊.top",
       "ok": true,
       "status": 206,
-      "ms": 1325,
+      "ms": 1802,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -121,7 +131,7 @@
       "url": "https://raw.githubusercontent.com/yoursmile66/TVBox/main/XC.json",
       "ok": true,
       "status": 206,
-      "ms": 126,
+      "ms": 330,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -131,7 +141,7 @@
       "url": "http://zhangqun1818.serv00.net/zq/api.json",
       "ok": true,
       "status": 206,
-      "ms": 726,
+      "ms": 728,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -141,7 +151,7 @@
       "url": "https://ztha.top/TVBox/thdjk.json",
       "ok": true,
       "status": 206,
-      "ms": 1338,
+      "ms": 1301,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -151,7 +161,7 @@
       "url": "http://hb.小虎斑.site:25252/仅供测试",
       "ok": true,
       "status": 206,
-      "ms": 1965,
+      "ms": 2460,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -161,7 +171,7 @@
       "url": "https://jihulab.com/jyqhkd/kd/-/raw/main/kai.json",
       "ok": true,
       "status": 206,
-      "ms": 579,
+      "ms": 911,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -171,7 +181,7 @@
       "url": "http://szyyds.cn/tv/x.json",
       "ok": true,
       "status": 206,
-      "ms": 2257,
+      "ms": 2768,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -181,7 +191,7 @@
       "url": "https://raw.githubusercontent.com/yw88075/tvbox/main/yw.json",
       "ok": true,
       "status": 206,
-      "ms": 117,
+      "ms": 285,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -191,7 +201,7 @@
       "url": "https://raw.githubusercontent.com/guot55/yg/main/max.json",
       "ok": true,
       "status": 206,
-      "ms": 134,
+      "ms": 425,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -201,7 +211,7 @@
       "url": "https://gitlab.com/noimank/tvbox/-/raw/main/tvbox1.json",
       "ok": true,
       "status": 206,
-      "ms": 188,
+      "ms": 66,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -211,7 +221,7 @@
       "url": "https://clun.top/box.json",
       "ok": true,
       "status": 200,
-      "ms": 539,
+      "ms": 1226,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -221,7 +231,7 @@
       "url": "https://raw.githubusercontent.com/xmbjm/svip/refs/heads/main/svip.json",
       "ok": true,
       "status": 206,
-      "ms": 210,
+      "ms": 371,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -231,7 +241,7 @@
       "url": "https://jiekou.netlify.app/svip.json",
       "ok": true,
       "status": 206,
-      "ms": 166,
+      "ms": 98,
       "error": null,
       "permanent": false,
       "failCount": 0
@@ -241,7 +251,7 @@
       "url": "https://chuanshuo.77blog.cn/tv.json",
       "ok": false,
       "status": 0,
-      "ms": 1345,
+      "ms": 1379,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -251,27 +261,27 @@
       "url": "https://d.kstore.dev/download/8975/刺刺专用音乐接口.json",
       "ok": false,
       "status": 404,
-      "ms": 345,
+      "ms": 1059,
       "error": "HTTP 404",
       "permanent": true,
-      "failCount": 10
+      "failCount": 11
     },
     {
       "name": "道长",
       "url": "https://gitlab.com/duomv/dzhipy/-/raw/main/index.json",
       "ok": false,
       "status": 404,
-      "ms": 1159,
+      "ms": 4831,
       "error": "HTTP 404",
       "permanent": true,
-      "failCount": 10
+      "failCount": 11
     },
     {
       "name": "毒盒",
       "url": "https://xn--8owq8u.com/tv/",
       "ok": false,
       "status": 0,
-      "ms": 212,
+      "ms": 672,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -281,7 +291,7 @@
       "url": "http://74.120.175.78/JK/XYQTVBox/dj.json",
       "ok": false,
       "status": 0,
-      "ms": 10086,
+      "ms": 10128,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -291,27 +301,17 @@
       "url": "https://raw.githubusercontent.com/leevi0709/one/main/jsm.json",
       "ok": false,
       "status": 404,
-      "ms": 104,
+      "ms": 273,
       "error": "HTTP 404",
       "permanent": true,
-      "failCount": 10
-    },
-    {
-      "name": "二小",
-      "url": "http://tvbox.王二小放牛娃.top",
-      "ok": false,
-      "status": 0,
-      "ms": 788,
-      "error": "fetch failed",
-      "permanent": false,
-      "failCount": 0
+      "failCount": 11
     },
     {
       "name": "肥猫",
       "url": "http://肥猫.com",
       "ok": false,
       "status": 0,
-      "ms": 10822,
+      "ms": 10891,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -321,27 +321,27 @@
       "url": "http://fmys.top/fmys.json",
       "ok": false,
       "status": 404,
-      "ms": 765,
+      "ms": 1136,
       "error": "HTTP 404",
       "permanent": true,
-      "failCount": 10
+      "failCount": 11
     },
     {
       "name": "各种网盘",
       "url": "https://raw.githubusercontent.com/PizazzGY/TVBox/main/api.json",
       "ok": false,
       "status": 404,
-      "ms": 80,
+      "ms": 64,
       "error": "HTTP 404",
       "permanent": true,
-      "failCount": 10
+      "failCount": 11
     },
     {
       "name": "公子",
       "url": "http://xn--b9w.l5.ca/",
       "ok": false,
       "status": 0,
-      "ms": 10284,
+      "ms": 10248,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -351,7 +351,7 @@
       "url": "https://乐哥.xyz/dj.json",
       "ok": false,
       "status": 0,
-      "ms": 35,
+      "ms": 905,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -361,7 +361,7 @@
       "url": "https://gitee.com/lukei7/lib/raw/Luck/%E8%87%AA%E5%BB%BA.json",
       "ok": false,
       "status": 423,
-      "ms": 1825,
+      "ms": 4207,
       "error": "HTTP 423",
       "permanent": false,
       "failCount": 0
@@ -371,7 +371,7 @@
       "url": "http://tv.laohu.cool/tvbox.json",
       "ok": false,
       "status": 0,
-      "ms": 275,
+      "ms": 1317,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -381,7 +381,7 @@
       "url": "https://乐哥.xyz/TV/Zy.json",
       "ok": false,
       "status": 0,
-      "ms": 378,
+      "ms": 1026,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -391,7 +391,7 @@
       "url": "https://git.acwing.com/999/tvbox/-/raw/main/%E5%BD%B1%E8%A7%86.json",
       "ok": false,
       "status": 403,
-      "ms": 784,
+      "ms": 1091,
       "error": "HTTP 403",
       "permanent": false,
       "failCount": 0
@@ -401,17 +401,17 @@
       "url": "https://bitbucket.org/xduo/duoapi/raw/master/xpg.json",
       "ok": false,
       "status": 404,
-      "ms": 620,
+      "ms": 309,
       "error": "HTTP 404",
       "permanent": true,
-      "failCount": 10
+      "failCount": 11
     },
     {
       "name": "欧歌",
       "url": "https://欧歌.v.nxog.top/m/",
       "ok": false,
       "status": 0,
-      "ms": 637,
+      "ms": 1041,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -421,7 +421,7 @@
       "url": "https://xn--biib-rp5imh.v.nxog.top/apitv.php",
       "ok": false,
       "status": 0,
-      "ms": 89,
+      "ms": 536,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -431,7 +431,7 @@
       "url": "https://gitee.com/yiwu369/6758/raw/master/%E9%9D%92%E9%BE%99/1.json",
       "ok": false,
       "status": 423,
-      "ms": 2149,
+      "ms": 8171,
       "error": "HTTP 423",
       "permanent": false,
       "failCount": 0
@@ -441,17 +441,17 @@
       "url": "https://raw.githubusercontent.com/yuanwangokk-1/TV-BOX/refs/heads/main/drpys/jsm.json",
       "ok": false,
       "status": 404,
-      "ms": 80,
+      "ms": 65,
       "error": "HTTP 404",
       "permanent": true,
-      "failCount": 10
+      "failCount": 11
     },
     {
       "name": "听书",
       "url": "https://乐哥.xyz/Ting/Tshu.json",
       "ok": false,
       "status": 0,
-      "ms": 32,
+      "ms": 142,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -461,17 +461,17 @@
       "url": "https://9877.kstore.space/AnotherD/api.json",
       "ok": false,
       "status": 404,
-      "ms": 699,
+      "ms": 806,
       "error": "HTTP 404",
       "permanent": true,
-      "failCount": 10
+      "failCount": 11
     },
     {
       "name": "小米",
       "url": "http://miqk.cc/小米/DEMO.json",
       "ok": false,
       "status": 0,
-      "ms": 10018,
+      "ms": 10036,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -481,7 +481,7 @@
       "url": "https://6492.kstore.space/xnf/xnf.json",
       "ok": false,
       "status": 401,
-      "ms": 451,
+      "ms": 461,
       "error": "HTTP 401",
       "permanent": false,
       "failCount": 0
@@ -491,7 +491,7 @@
       "url": "https://fmbox.cc",
       "ok": false,
       "status": 403,
-      "ms": 619,
+      "ms": 984,
       "error": "HTTP 403",
       "permanent": false,
       "failCount": 0
@@ -501,7 +501,7 @@
       "url": "https://cnb.cool/fish2018/zx/-/git/raw/master/FongMi.json",
       "ok": false,
       "status": 403,
-      "ms": 649,
+      "ms": 1909,
       "error": "HTTP 403",
       "permanent": false,
       "failCount": 0
@@ -511,7 +511,7 @@
       "url": "http://2883.kstore.space/nzk/nzk0722.json",
       "ok": false,
       "status": 401,
-      "ms": 275,
+      "ms": 741,
       "error": "HTTP 401",
       "permanent": false,
       "failCount": 0
@@ -521,7 +521,7 @@
       "url": "http://ok321.top/ok",
       "ok": false,
       "status": 0,
-      "ms": 357,
+      "ms": 1146,
       "error": "fetch failed",
       "permanent": false,
       "failCount": 0
@@ -531,7 +531,7 @@
       "url": "https://cnb.cool/fish2018/pg/-/git/raw/master/jsm.json",
       "ok": false,
       "status": 403,
-      "ms": 1439,
+      "ms": 5038,
       "error": "HTTP 403",
       "permanent": false,
       "failCount": 0
