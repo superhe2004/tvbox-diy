@@ -5,10 +5,10 @@
  * 避免 raw.githubusercontent.com 无法直连时订阅或规则失效。
  *
  * 一、固定路由（兼容原有订阅地址）
- *   /                -> output/all.json（可用多仓，含本项目自托管线路）
- *   /all.json        -> output/all.json
+ *   /                -> output/self.json（自托管单仓；只用单仓时订阅根域名即可）
+ *   /self.json       -> output/self.json
+ *   /all.json        -> output/all.json（可用多仓，含本项目自托管线路）
  *   /shiguang.json   -> output/shiguang.json（原始上游清单，含失效项）
- *   /self.json       -> output/self.json（自托管单仓，219 站点）
  *   /health.json     -> output/health.json
  *   /cang.json       -> cang.json
  *
@@ -28,7 +28,7 @@ const BRANCH = 'main';
 
 // 对外路径 -> 仓库内真实文件路径
 const ROUTES = {
-  '/': 'output/all.json',
+  '/': 'output/self.json',
   '/all.json': 'output/all.json',
   '/shiguang.json': 'output/shiguang.json',
   '/self.json': 'output/self.json',
