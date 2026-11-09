@@ -6,9 +6,17 @@
  *   - 每个分区支持 Item 增删，字段 Key / Name / Type / Api / PlayUrl 等
  *   - 可视（表单）/ 编辑（原始 JSON）/ 清空 / 保存（浏览器 localStorage）
  *   - 测速：对点播源 Api、直播源 Url、解析地址 Url 逐条检测
+ *   - 多仓拆解：导入多仓链接/JSON 后展开线路列表，逐条或批量测速，
+ *     支持单条「合并/载入」与「合并全部」（按 key/api/url 去重）
+ *   - 合并导入：任意单仓 JSON 可合并进当前配置而不替换
+ *   - 制作采集站：粘贴 maccms 接口地址，/api/detect 自动探测 XML/JSON 类型后生成条目
  *
  * 部署前必须设置环境变量 PASSWORD（Worker → Settings → Variables and Secrets）。
  * 可选 AUTH_SECRET：登录 Cookie 的签名密钥，不设则用 PASSWORD。
+ *
+ * 服务端接口：
+ *   POST /api/login   登录            GET  /api/config?url=  拉取配置文本
+ *   POST /api/probe   批量测速        GET  /api/detect?url=  采集接口类型探测
  */
 
 const COOKIE_NAME = 'tvbox_editor_auth';
@@ -294,6 +302,11 @@ function editorHtml() {
     '.empty{padding:40px 0;text-align:center;color:#98a2b3;border:1px dashed #d5dae1;border-radius:8px;background:#fafbfc}' +
     '.hint{color:#8b95a3;font-size:12px;margin-top:10px;min-height:18px}' +
     '.import-box{display:none;margin-top:14px;background:#fff;border:1px solid #e3e6eb;border-radius:8px;padding:14px 16px}' +
+    '.repo-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px dashed #edf0f3;flex-wrap:wrap}' +
+    '.repo-row:last-child{border-bottom:0}' +
+    '.repo-name{min-width:160px;font-weight:600;color:#3c4858;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
+    '.repo-url{flex:1;min-width:200px;color:#8b95a3;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
+    '.repo-row button{padding:4px 10px;font-size:12px}' +
     '.inline{display:flex;gap:8px;align-items:center}' +
     '.inline input{flex:1}' +
     '.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#1f2937;color:#fff;padding:10px 18px;border-radius:6px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}' +
@@ -307,6 +320,7 @@ function editorHtml() {
     '<p class="sub">本地记录依赖浏览器缓存，清空缓存将丢失记录</p>' +
     '<a class="link" href="' + DEFAULT_CONFIG_URL + '" target="_blank" rel="noopener">&gt;&gt;&gt; 【TVBOX最新接口获取】</a>' +
     '</div><div class="head-acts">' +
+    '<button data-act="detect">制作采集站</button>' +
     '<button data-act="import">导入</button><button data-act="export">导出</button>' +
     '</div></div>' +
 
@@ -329,8 +343,26 @@ function editorHtml() {
     '<button data-act="import-url">读取</button></div>' +
     '<label>或粘贴 JSON（支持单仓配置或 {"urls":[...]} 多仓）</label>' +
     '<textarea id="importText" rows="8" spellcheck="false"></textarea>' +
-    '<div class="inline" style="margin-top:10px"><button class="btn-primary" data-act="import-text">导入文本</button>' +
+    '<div class="inline" style="margin-top:10px"><button class="btn-primary" data-act="import-text">导入(替换)</button>' +
+    '<button class="btn-primary" data-act="import-text-merge">导入(合并)</button>' +
     '<button data-act="close-import">取消</button></div>' +
+    '</div>' +
+
+    '<div class="import-box" id="detectBox">' +
+    '<label>快速制作采集站：粘贴 maccms 接口地址（形如 https://域名/api.php/provide/vod），自动探测类型生成条目</label>' +
+    '<div class="inline"><input id="detectUrl" spellcheck="false" placeholder="采集接口地址">' +
+    '<input id="detectName" spellcheck="false" placeholder="名称（可空，默认用域名）" style="max-width:220px">' +
+    '<button class="btn-primary" data-act="detect-add">检测并添加</button></div>' +
+    '<div class="hint" id="detectHint"></div>' +
+    '</div>' +
+
+    '<div class="import-box" id="reposBox">' +
+    '<div class="sec-head" style="margin-bottom:6px"><span class="sec-title">多仓拆解</span>' +
+    '<span class="sec-count" id="reposCount"></span>' +
+    '<button data-act="repos-test">全部测速</button>' +
+    '<button class="btn-add" data-act="repos-merge-all">合并全部到当前配置</button>' +
+    '<button data-act="close-repos">关闭</button></div>' +
+    '<div id="reposList"></div>' +
     '</div>' +
 
     '</div><div class="toast" id="toast"></div>' +
@@ -507,10 +539,137 @@ function editorHtml() {
     'return out;' +
     '}' +
     'function fromConfig(cfg){' +
-    'if(cfg&&Array.isArray(cfg.urls)){' +
-    'toast("检测到多仓配置，已导入 "+cfg.urls.length+" 条；多仓请在 JSON 模式下查看");return false;' +
-    '}' +
+    'if(cfg&&Array.isArray(cfg.urls)){showRepos(cfg.urls);return false;}' +
     'state.data=normalize(cfg);return true;' +
+    '}' +
+    'var repoList=[];' +
+    'function mergeConfig(cfg){' +
+    'var added={sites:0,lives:0,parses:0};' +
+    'if(!cfg||typeof cfg!=="object")return added;' +
+    'var d=state.data;' +
+    'function pushList(dst,src,keyFields){' +
+    'if(!Array.isArray(src))return;' +
+    'src.forEach(function(it){' +
+    'if(!it||typeof it!=="object")return;' +
+    'var dup=dst.some(function(x){' +
+    'if(it.key&&x.key===it.key)return true;' +
+    'if(it.api&&x.api===it.api)return true;' +
+    'if(it.url&&x.url===it.url)return true;' +
+    'return false;' +
+    '});' +
+    'if(!dup){dst.push(it);added[keyFields]++;}' +
+    '});' +
+    '}' +
+    'pushList(d.sites,cfg.sites,"sites");' +
+    'pushList(d.lives,cfg.lives,"lives");' +
+    'pushList(d.parses,cfg.parses,"parses");' +
+    'if(!d.wallpaper&&cfg.wallpaper)d.wallpaper=String(cfg.wallpaper);' +
+    'if(!d.spider&&cfg.spider)d.spider=String(cfg.spider);' +
+    'return added;' +
+    '}' +
+    'function mergeAndReport(cfg,label){' +
+    'var a=mergeConfig(cfg);' +
+    'var total=a.sites+a.lives+a.parses;' +
+    'if(total){persist();render();}' +
+    'toast((label?label+"：":"")+"新增 点播"+a.sites+" 直播"+a.lives+" 解析"+a.parses);' +
+    'return total;' +
+    '}' +
+    'function showRepos(urls){' +
+    'repoList=urls.map(function(u,i){' +
+    'var o=(u&&typeof u==="object")?u:{url:String(u||"")};' +
+    'return {i:i,name:String(o.name||("线路 "+(i+1))),url:String(o.url||""),result:null};' +
+    '}).filter(function(r){return r.url;});' +
+    'if(!repoList.length){toast("多仓里没有可用链接");return;}' +
+    '$("reposBox").style.display="block";' +
+    'renderRepos();' +
+    'toast("检测到多仓，共 "+repoList.length+" 条，可测速后合并或载入");' +
+    '}' +
+    'function renderRepos(){' +
+    '$("reposCount").textContent="共 "+repoList.length+" 条";' +
+    '$("reposList").innerHTML=repoList.map(function(r){' +
+    'var badge="<span class=\\"badge idle\\" id=\\"repo-badge-"+r.i+"\\">未测</span>";' +
+    'if(r.result){' +
+    'var res=r.result;var cls="good";var txt=res.status+" · "+res.ms+"ms";' +
+    'if(!res.ok){cls="bad";txt=res.status?("HTTP "+res.status):"失效";}' +
+    'else if(!res.json)cls="warn";' +
+    'else if(res.count!=null)txt+=" · "+res.count+"源";' +
+    'badge="<span class=\\"badge "+cls+"\\" id=\\"repo-badge-"+r.i+"\\">"+esc(txt)+"</span>";' +
+    '}' +
+    'return "<div class=\\"repo-row\\"><span class=\\"repo-name\\" title=\\""+esc(r.name)+"\\">"+esc(r.name)+"</span>"+' +
+    '"<span class=\\"repo-url\\" title=\\""+esc(r.url)+"\\">"+esc(r.url)+"</span>"+badge+' +
+    '"<button data-act=\\"repo-test\\" data-idx=\\""+r.i+"\\">测速</button>"+' +
+    '"<button data-act=\\"repo-merge\\" data-idx=\\""+r.i+"\\">合并</button>"+' +
+    '"<button data-act=\\"repo-load\\" data-idx=\\""+r.i+"\\">载入</button></div>";' +
+    '}).join("");' +
+    '}' +
+    'function fetchRepo(u){' +
+    'return fetch("/api/config?url="+encodeURIComponent(u)).then(function(r){return r.json();}).then(function(j){' +
+    'if(!j.ok)throw new Error(j.error||"读取失败");' +
+    'return JSON.parse(j.text);' +
+    '});' +
+    '}' +
+    'function probeRepos(ids){' +
+    'var CHUNK=10;var pending=ids.slice();' +
+    'function step(){' +
+    'if(!pending.length){toast("测速完成");return;}' +
+    'var part=pending.splice(0,CHUNK);' +
+    'var payload=part.map(function(i){return {i:i,name:repoList[i].name,url:repoList[i].url};});' +
+    'fetch("/api/probe",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({urls:payload})})' +
+    '.then(function(r){return r.json();}).then(function(j){' +
+    '(j.results||[]).forEach(function(res){' +
+    'var r=repoList[res.i];if(!r)return;r.result=res;' +
+    'var b=document.getElementById("repo-badge-"+res.i);' +
+    'if(b){var cls="good";var txt=res.status+" · "+res.ms+"ms";' +
+    'if(!res.ok){cls="bad";txt=res.status?("HTTP "+res.status):"失效";}' +
+    'else if(!res.json)cls="warn";' +
+    'else if(res.count!=null)txt+=" · "+res.count+"源";' +
+    'b.className="badge "+cls;b.textContent=txt;}' +
+    '});' +
+    'toast("测速中，剩余 "+pending.length+" 条");step();' +
+    '}).catch(function(){step();});' +
+    '}' +
+    'step();' +
+    '}' +
+    'function mergeAllRepos(){' +
+    'var ok=repoList.filter(function(r){return !r.result||r.result.ok;});' +
+    'if(!ok.length){toast("没有可合并的线路");return;}' +
+    'var done=0,fail=0,addedTotal=0;' +
+    'toast("合并中 0/"+ok.length);' +
+    'function step(){' +
+    'if(done+fail>=ok.length){' +
+    'persist();render();' +
+    'toast("合并完成：成功 "+done+" 条，失败 "+fail+" 条");' +
+    'return;' +
+    '}' +
+    'var r=ok[done+fail];' +
+    'fetchRepo(r.url).then(function(cfg){' +
+    'if(cfg&&Array.isArray(cfg.sites)){addedTotal+=mergeAndReportSilent(cfg);done++;}' +
+    'else fail++;' +
+    '}).catch(function(){fail++;}).then(function(){' +
+    'if((done+fail)%5===0)toast("合并中 "+(done+fail)+"/"+ok.length);' +
+    'step();' +
+    '});' +
+    '}' +
+    'step();' +
+    '}' +
+    'function mergeAndReportSilent(cfg){' +
+    'var a=mergeConfig(cfg);return a.sites+a.lives+a.parses;' +
+    '}' +
+    'function detectAdd(){' +
+    'var u=$("detectUrl").value.trim();var name=$("detectName").value.trim();' +
+    'if(!u){toast("请粘贴接口地址");return;}' +
+    '$("detectHint").textContent="检测中...";' +
+    'fetch("/api/detect?url="+encodeURIComponent(u)).then(function(r){return r.json();}).then(function(j){' +
+    'if(!j.ok){$("detectHint").textContent="检测失败："+(j.error||"");return;}' +
+    'var host="";try{host=new URL(u).host;}catch(e){}' +
+    'var dup=state.data.sites.some(function(x){return x.api===u;});' +
+    'if(dup){$("detectHint").textContent="该接口已存在，未重复添加";return;}' +
+    'var item={key:"cj_"+Date.now().toString(36),name:name||("采集 | "+host),type:j.type,api:u,searchable:1,quickSearch:1,filterable:1,changeable:1,playUrl:"",ext:""};' +
+    'state.data.sites.push(item);persist();' +
+    'state.tab="sites";state.mode="form";render();' +
+    '$("detectHint").textContent="已添加：type "+j.type+(j.total!=null?("，约 "+j.total+" 部"):"")+"，"+j.ms+"ms";' +
+    'toast("已添加到点播源");' +
+    '}).catch(function(e){$("detectHint").textContent="请求失败："+e.message;});' +
     '}' +
     'function addItem(secId){' +
     'var sec=findSec(secId);if(!sec||sec.kind==="text")return;' +
@@ -572,6 +731,31 @@ function editorHtml() {
     'if(act==="close-import"){$("importBox").style.display="none";return;}' +
     'if(act==="import-text"){' +
     'try{var cfg=JSON.parse($("importText").value);if(fromConfig(cfg)){state.mode="form";persist();render();toast("已导入");$("importBox").style.display="none";}}catch(err){toast("JSON 解析失败："+err.message);}return;' +
+    '}' +
+    'if(act==="import-text-merge"){' +
+    'try{var cfg2=JSON.parse($("importText").value);' +
+    'if(cfg2&&Array.isArray(cfg2.urls)){showRepos(cfg2.urls);$("importBox").style.display="none";}' +
+    'else{mergeAndReport(cfg2,"合并");$("importBox").style.display="none";}' +
+    '}catch(err){toast("JSON 解析失败："+err.message);}return;' +
+    '}' +
+    'if(act==="detect"){var db=$("detectBox");db.style.display=db.style.display==="block"?"none":"block";return;}' +
+    'if(act==="detect-add"){detectAdd();return;}' +
+    'if(act==="close-repos"){$("reposBox").style.display="none";return;}' +
+    'if(act==="repos-test"){probeRepos(repoList.map(function(r){return r.i;}));return;}' +
+    'if(act==="repos-merge-all"){mergeAllRepos();return;}' +
+    'if(act==="repo-test"){probeRepos([Number(idx)]);return;}' +
+    'if(act==="repo-merge"){' +
+    'var rm=repoList[Number(idx)];if(!rm)return;toast("合并 "+rm.name+" 中...");' +
+    'fetchRepo(rm.url).then(function(cfg){mergeAndReport(cfg,rm.name);}).catch(function(err){toast(err.message);});return;' +
+    '}' +
+    'if(act==="repo-load"){' +
+    'var rl=repoList[Number(idx)];if(!rl)return;' +
+    'if(!confirm("载入将替换当前全部配置，确定？"))return;' +
+    'toast("载入 "+rl.name+" 中...");' +
+    'fetchRepo(rl.url).then(function(cfg){' +
+    'if(fromConfig(cfg)){state.mode="form";persist();render();toast("已载入 "+rl.name);$("reposBox").style.display="none";}' +
+    'else{toast("该链接是多仓，已展开到拆解面板");}' +
+    '}).catch(function(err){toast(err.message);});return;' +
     '}' +
     'if(act==="import-url"){' +
     'var u=$("importUrl").value.trim();if(!u)return;toast("读取中...");' +
@@ -679,6 +863,46 @@ export default {
       });
 
       return jsonResponse({ ok: true, results });
+    }
+
+    if (path === '/api/detect') {
+      // 采集接口探测：GET {api}?ac=list，判定 XML/JSON 并粗估条目数，用于快速制作新采集站
+      if (request.method !== 'GET') return jsonResponse({ ok: false, error: '仅支持 GET' }, 405);
+      const target = url.searchParams.get('url') || '';
+      let parsed;
+      try { parsed = new URL(target); } catch { return jsonResponse({ ok: false, error: '地址格式不正确' }, 400); }
+      if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+        return jsonResponse({ ok: false, error: '仅支持 http/https' }, 400);
+      }
+      const probeUrl = parsed.toString() + (parsed.search ? '&' : '?') + 'ac=list';
+      const startedAt = Date.now();
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), PROBE_TIMEOUT);
+      try {
+        const response = await fetch(probeUrl, {
+          signal: controller.signal,
+          redirect: 'follow',
+          headers: { 'user-agent': 'Mozilla/5.0 (TVBox)' },
+          cf: { cacheTtl: 0 },
+        });
+        const { text } = await readLimited(response, 512 * 1024);
+        const ms = Date.now() - startedAt;
+        if (!response.ok) return jsonResponse({ ok: false, error: 'HTTP ' + response.status, ms });
+        if (!/<list|"list"|<rss|<vod|class/i.test(text)) {
+          return jsonResponse({ ok: false, error: '响应不像采集接口', ms });
+        }
+        const isJson = /^\s*[{[]/.test(text);
+        let total = null;
+        if (isJson) {
+          try { total = JSON.parse(text).total ?? null; } catch { /* 截断时忽略 */ }
+        }
+        return jsonResponse({ ok: true, type: isJson ? 1 : 0, total, ms });
+      } catch (error) {
+        const aborted = error && error.name === 'AbortError';
+        return jsonResponse({ ok: false, error: aborted ? '超时' : String((error && error.message) || error), ms: Date.now() - startedAt });
+      } finally {
+        clearTimeout(timer);
+      }
     }
 
     return jsonResponse({ ok: false, error: '接口不存在' }, 404);
