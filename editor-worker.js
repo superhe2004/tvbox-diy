@@ -5,7 +5,10 @@
  *   - 八个分区：点播源 / 直播源 / 解析地址 / VIP解析标识 / IJK配置 / 解析广告过滤 / 壁纸 / 自定义爬虫
  *   - 每个分区支持 Item 增删，字段 Key / Name / Type / Api / PlayUrl 等
  *   - 可视（表单）/ 编辑（原始 JSON）/ 清空 / 保存（浏览器 localStorage）
- *   - 测速：对点播源 Api、直播源 Url、解析地址 Url 逐条检测
+ *   - 测速：对点播源 Api、直播源 Url、解析地址 Url 逐条检测；
+ *     结果直观标记：绿=成功 / 黄=可访问但非JSON / 红=失败（卡片红框），
+ *     分区标题实时统计成功/失败数与平均耗时，可「只看失败」集中清理
+ *   - 使用说明面板：各功能中文说明与测速颜色含义
  *   - 多仓拆解：导入多仓链接/JSON 后展开线路列表，逐条或批量测速，
  *     支持单条「合并/载入」与「合并全部」（按 key/api/url 去重）
  *   - 合并导入：任意单仓 JSON 可合并进当前配置而不替换
@@ -307,6 +310,13 @@ function editorHtml() {
     '.repo-name{min-width:160px;font-weight:600;color:#3c4858;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
     '.repo-url{flex:1;min-width:200px;color:#8b95a3;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
     '.repo-row button{padding:4px 10px;font-size:12px}' +
+    '.card.ok{border-left:4px solid #2da44e}' +
+    '.card.warn{border-left:4px solid #e3a008}' +
+    '.card.fail{border-left:4px solid #d64545}' +
+    '.sec-stats{font-size:12px;color:#7a8694;font-weight:400}' +
+    '.sec-desc{font-size:12px;color:#9aa5b1;margin:-4px 0 10px;line-height:1.6}' +
+    '.help-box{display:none;margin-top:14px;background:#fff;border:1px solid #e3e6eb;border-radius:8px;padding:16px 20px;font-size:13px;line-height:2;color:#4a5568}' +
+    '.help-box h4{margin:10px 0 4px;color:#2c3e50;font-size:13px}' +
     '.inline{display:flex;gap:8px;align-items:center}' +
     '.inline input{flex:1}' +
     '.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#1f2937;color:#fff;padding:10px 18px;border-radius:6px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}' +
@@ -320,6 +330,7 @@ function editorHtml() {
     '<p class="sub">本地记录依赖浏览器缓存，清空缓存将丢失记录</p>' +
     '<a class="link" href="' + DEFAULT_CONFIG_URL + '" target="_blank" rel="noopener">&gt;&gt;&gt; 【TVBOX最新接口获取】</a>' +
     '</div><div class="head-acts">' +
+    '<button data-act="help">使用说明</button>' +
     '<button data-act="detect">制作采集站</button>' +
     '<button data-act="import">导入</button><button data-act="export">导出</button>' +
     '</div></div>' +
@@ -365,6 +376,26 @@ function editorHtml() {
     '<div id="reposList"></div>' +
     '</div>' +
 
+    '<div class="help-box" id="helpBox">' +
+    '<h4>测速结果怎么看</h4>' +
+    '<span class="badge good">✓ 成功</span> 接口可访问且返回数据（点播源会显示包含多少个子源）；' +
+    '<span class="badge warn">⚠ 可访问·非JSON</span> 能连上但响应不是 JSON——解析地址和直播源返回网页/文本属正常，不影响使用；' +
+    '<span class="badge bad">✗ 失败</span> 超时、无法连接或 HTTP 报错，该条目卡片会标红框，点分区里的「只看失败」可集中清理。<br>' +
+    '每个分区标题栏会显示测速统计：<b style="color:#2da44e">✓ 成功数</b> / <b style="color:#d64545">✗ 失败数</b> 和平均耗时。' +
+    '<h4>功能区</h4>' +
+    '<b>可视 / 编辑</b>：表单模式与原始 JSON 模式互切，改动会自动保存到浏览器缓存（「保存」按钮手动落盘）。<br>' +
+    '<b>导入</b>：粘贴或读取单仓 / 多仓链接。多仓会自动拆解成线路列表，可批量测速后「合并全部」（自动去重）或单条「合并 / 载入」；「导入(合并)」把别人的配置追加进来不覆盖现有内容。<br>' +
+    '<b>制作采集站</b>：粘贴 maccms 采集接口地址（形如 https://域名/api.php/provide/vod），自动请求 ?ac=list 探测，按真实响应判定类型（0=XML / 1=JSON）并生成条目。<br>' +
+    '<b>导出</b>：下载当前配置 JSON。发布方式：覆盖仓库 output/self.json 后提交推送。<br>' +
+    '<b>清空</b>：删除全部分区内容，不可恢复，慎用。' +
+    '<h4>分区说明</h4>' +
+    '点播源：影视站点，type 3=JS 规则（本仓库自托管）、0=XML 采集、1=JSON 采集；' +
+    '直播源：m3u / txt 直播列表；' +
+    '解析地址：VIP 视频解析接口，播放时拼接在视频链接前；' +
+    'VIP解析标识 / IJK配置 / 解析广告过滤 / 壁纸 / 自定义爬虫：高级选项，一般保持默认或留空。' +
+    '<div class="inline" style="margin-top:10px"><button data-act="close-help">收起说明</button></div>' +
+    '</div>' +
+
     '</div><div class="toast" id="toast"></div>' +
 
     '<script>' +
@@ -402,6 +433,17 @@ function editorHtml() {
     '{id:"spider",label:"自定义爬虫",kind:"text",ph:"爬虫 JAR 地址"}' +
     '];' +
     'var state={tab:"sites",mode:"form",data:emptyData()};' +
+    'var failOnly={};' +
+    'var SEC_DESC={' +
+    'sites:"影视站点列表。type：3=JS 规则（本仓库自托管）、0=XML 采集、1=JSON 采集；Api 是数据接口地址，测速检测 Api 可达性与耗时。",' +
+    'lives:"直播源列表，Url 填 m3u / txt 直播列表地址。返回文本属正常，测速显示黄色不代表不可用。",' +
+    'parses:"VIP 视频解析接口，播放时拼接在视频链接前（…?url=视频地址）。返回网页属正常，测速显示黄色即可用。",' +
+    'flags:"VIP 站点域名标识（如 youku、qq），用于判断哪些站走解析接口。",' +
+    'ijk:"IJK 播放器内核参数，不熟悉可留空。",' +
+    'ads:"广告过滤规则，命中的 m3u8 分片会被跳过，可留空。",' +
+    'wallpaper:"App 背景壁纸图片地址，可留空。",' +
+    'spider:"自定义爬虫 JAR 地址。本仓库站点均为 JS 规则，一般不需要。"' +
+    '};' +
     'function emptyData(){return {sites:[],lives:[],parses:[],flags:[],ijk:[],ads:[],wallpaper:"",spider:""};}' +
     'function $(id){return document.getElementById(id);}' +
     'function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}' +
@@ -426,13 +468,17 @@ function editorHtml() {
     '}' +
     'return out;' +
     '}' +
+    'function resultView(r,field){' +
+    'if(!r)return {cls:"idle",txt:"未测"};' +
+    'if(r.ok&&r.json){var t="✓ 成功 "+r.ms+"ms";if(r.count!=null&&field==="api")t+=" · "+r.count+"源";return {cls:"good",txt:t};}' +
+    'if(r.ok)return {cls:"warn",txt:"⚠ 可访问·非JSON "+r.ms+"ms"};' +
+    'return {cls:"bad",txt:r.status?("✗ 失败 HTTP "+r.status):"✗ 失败·超时/无法连接"};' +
+    '}' +
+    'function probeFieldOf(secId){return secId==="sites"?"api":"url";}' +
     'function badgeHtml(secId,idx){' +
     'var it=state.data[secId][idx];var r=it&&it.__result;' +
-    'if(!r)return "<span class=\\"badge idle\\" id=\\"badge-"+secId+"-"+idx+"\\">未测</span>";' +
-    'var cls="good";var txt=r.status+" · "+r.ms+"ms";' +
-    'if(!r.ok){cls="bad";txt=r.status?("HTTP "+r.status):"失败";}' +
-    'else if(!r.json)cls="warn";' +
-    'return "<span class=\\"badge "+cls+"\\" id=\\"badge-"+secId+"-"+idx+"\\" title=\\""+esc(r.error||"")+"\\">"+esc(txt)+"</span>";' +
+    'var v=resultView(r,probeFieldOf(secId));' +
+    'return "<span class=\\"badge "+v.cls+"\\" id=\\"badge-"+secId+"-"+idx+"\\" title=\\""+esc((r&&r.error)||"")+"\\">"+esc(v.txt)+"</span>";' +
     '}' +
     'function itemHead(sec,idx){' +
     'var acts="";' +
@@ -443,9 +489,15 @@ function editorHtml() {
     'function listCards(sec){' +
     'var list=state.data[sec.id];' +
     'if(!list.length)return "<div class=\\"empty\\">还没有条目，点「添加」新建一条</div>";' +
-    'return list.map(function(item,i){' +
+    'var idxs=[];for(var j=0;j<list.length;j++)idxs.push(j);' +
+    'if(failOnly[sec.id])idxs=idxs.filter(function(i){var r=list[i].__result;return r&&!r.ok;});' +
+    'if(!idxs.length)return "<div class=\\"empty\\">没有失败的条目，点「查看全部」返回</div>";' +
+    'return idxs.map(function(i){' +
+    'var item=list[i];' +
     'var body=sec.fields.map(function(f){return fieldHtml(sec.id,i,f,item[f.k]);}).join("");' +
-    'return "<div class=\\"card\\">"+itemHead(sec,i)+body+"</div>";' +
+    'var r=item.__result;var cls="card";' +
+    'if(r)cls+=r.ok&&r.json?" ok":(r.ok?" warn":" fail");' +
+    'return "<div class=\\""+cls+"\\" id=\\"card-"+sec.id+"-"+i+"\\">"+itemHead(sec,i)+body+"</div>";' +
     '}).join("");' +
     '}' +
     'function stringsList(sec){' +
@@ -480,7 +532,10 @@ function editorHtml() {
     '"<span class=\\"sec-count\\">共 "+countOf(sec)+" 项</span>";' +
     'if(sec.kind!=="text")head+="<button class=\\"btn-add\\" data-act=\\"add\\" data-sec=\\""+sec.id+"\\">添加</button>";' +
     'if(sec.testable)head+="<button data-act=\\"test-all\\" data-sec=\\""+sec.id+"\\">测速全部</button>";' +
+    'if(sec.testable)head+="<button data-act=\\"filter-fail\\" data-sec=\\""+sec.id+"\\">"+(failOnly[sec.id]?"查看全部":"只看失败")+"</button>";' +
+    'if(sec.testable)head+="<span class=\\"sec-stats\\" id=\\"stats-"+sec.id+"\\"></span>";' +
     'head+="</div>";' +
+    'if(SEC_DESC[sec.id])head+="<div class=\\"sec-desc\\">"+SEC_DESC[sec.id]+"</div>";' +
     'var body="";' +
     'if(sec.kind==="text")body=textCard(sec);' +
     'else if(sec.kind==="strings")body=stringsList(sec);' +
@@ -493,7 +548,7 @@ function editorHtml() {
     '"<div class=\\"toolbar\\"><button class=\\"btn-primary\\" data-act=\\"apply-raw\\">应用到表单</button>"+' +
     '"<button data-act=\\"format-raw\\">格式化</button><button data-act=\\"copy-raw\\">复制</button></div>";' +
     '}' +
-    'function render(){renderTabs();$("panel").innerHTML=(state.mode==="raw")?renderRaw():renderForm();}' +
+    'function render(){renderTabs();$("panel").innerHTML=(state.mode==="raw")?renderRaw():renderForm();var sec=findSec(state.tab);if(sec&&sec.testable)updateStats(sec.id);}' +
     'function persist(){try{localStorage.setItem(LS_KEY,JSON.stringify(state.data));}catch(e){}}' +
     'var saveTimer=null;' +
     'function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(persist,400);}' +
@@ -584,19 +639,19 @@ function editorHtml() {
     'renderRepos();' +
     'toast("检测到多仓，共 "+repoList.length+" 条，可测速后合并或载入");' +
     '}' +
+    'function repoBadge(res,id){' +
+    'if(!res)return "<span class=\\"badge idle\\" id=\\""+id+"\\">未测</span>";' +
+    'var v;' +
+    'if(res.ok&&res.json){var t="✓ 成功 "+res.ms+"ms";if(res.count!=null)t+=" · "+res.count+"源";v={cls:"good",txt:t};}' +
+    'else if(res.ok)v={cls:"warn",txt:"⚠ 可访问·非JSON "+res.ms+"ms"};' +
+    'else v={cls:"bad",txt:res.status?("✗ HTTP "+res.status):"✗ 失效·超时/无法连接"};' +
+    'return "<span class=\\"badge "+v.cls+"\\" id=\\""+id+"\\">"+esc(v.txt)+"</span>";' +
+    '}' +
     'function renderRepos(){' +
     '$("reposCount").textContent="共 "+repoList.length+" 条";' +
     '$("reposList").innerHTML=repoList.map(function(r){' +
-    'var badge="<span class=\\"badge idle\\" id=\\"repo-badge-"+r.i+"\\">未测</span>";' +
-    'if(r.result){' +
-    'var res=r.result;var cls="good";var txt=res.status+" · "+res.ms+"ms";' +
-    'if(!res.ok){cls="bad";txt=res.status?("HTTP "+res.status):"失效";}' +
-    'else if(!res.json)cls="warn";' +
-    'else if(res.count!=null)txt+=" · "+res.count+"源";' +
-    'badge="<span class=\\"badge "+cls+"\\" id=\\"repo-badge-"+r.i+"\\">"+esc(txt)+"</span>";' +
-    '}' +
     'return "<div class=\\"repo-row\\"><span class=\\"repo-name\\" title=\\""+esc(r.name)+"\\">"+esc(r.name)+"</span>"+' +
-    '"<span class=\\"repo-url\\" title=\\""+esc(r.url)+"\\">"+esc(r.url)+"</span>"+badge+' +
+    '"<span class=\\"repo-url\\" title=\\""+esc(r.url)+"\\">"+esc(r.url)+"</span>"+repoBadge(r.result,"repo-badge-"+r.i)+' +
     '"<button data-act=\\"repo-test\\" data-idx=\\""+r.i+"\\">测速</button>"+' +
     '"<button data-act=\\"repo-merge\\" data-idx=\\""+r.i+"\\">合并</button>"+' +
     '"<button data-act=\\"repo-load\\" data-idx=\\""+r.i+"\\">载入</button></div>";' +
@@ -618,12 +673,8 @@ function editorHtml() {
     '.then(function(r){return r.json();}).then(function(j){' +
     '(j.results||[]).forEach(function(res){' +
     'var r=repoList[res.i];if(!r)return;r.result=res;' +
-    'var b=document.getElementById("repo-badge-"+res.i);' +
-    'if(b){var cls="good";var txt=res.status+" · "+res.ms+"ms";' +
-    'if(!res.ok){cls="bad";txt=res.status?("HTTP "+res.status):"失效";}' +
-    'else if(!res.json)cls="warn";' +
-    'else if(res.count!=null)txt+=" · "+res.count+"源";' +
-    'b.className="badge "+cls;b.textContent=txt;}' +
+    'var row=document.getElementById("repo-badge-"+res.i);' +
+    'if(row){var tmp=document.createElement("span");tmp.innerHTML=repoBadge(res,"repo-badge-"+res.i);row.replaceWith(tmp.firstChild);}' +
     '});' +
     'toast("测速中，剩余 "+pending.length+" 条");step();' +
     '}).catch(function(){step();});' +
@@ -679,6 +730,17 @@ function editorHtml() {
     'state.data[secId].splice(idx,1);persist();render();' +
     '}' +
     'function urlFieldOf(sec){for(var i=0;i<sec.fields.length;i++){if(sec.fields[i].test)return sec.fields[i];}return null;}' +
+    'function updateStats(secId){' +
+    'var el=$("stats-"+secId);if(!el)return;' +
+    'var ok=0,warn=0,fail=0,ms=0;' +
+    'state.data[secId].forEach(function(it){' +
+    'var r=it&&it.__result;if(!r)return;' +
+    'if(r.ok&&r.json){ok++;ms+=r.ms||0;}else if(r.ok){warn++;ms+=r.ms||0;}else fail++;' +
+    '});' +
+    'if(!ok&&!warn&&!fail){el.innerHTML="";return;}' +
+    'var avg=(ok+warn)?Math.round(ms/(ok+warn)):0;' +
+    'el.innerHTML="测速结果：<b style=\\"color:#2da44e\\">✓ "+ok+"</b>"+(warn?(" / <b style=\\"color:#b26a00\\">⚠ "+warn+"</b>"):"")+" / <b style=\\"color:#d64545\\">✗ "+fail+"</b> · 平均 "+avg+"ms";' +
+    '}' +
     'function probe(secId,ids,done){' +
     'var sec=findSec(secId);var f=urlFieldOf(sec);if(!f){done();return;}' +
     'var CHUNK=12;var pending=ids.slice();' +
@@ -690,12 +752,14 @@ function editorHtml() {
     '.then(function(r){return r.json();}).then(function(j){' +
     '(j.results||[]).forEach(function(res){' +
     'var item=state.data[secId][res.i];if(!item)return;item.__result=res;' +
+    'var v=resultView(res,probeFieldOf(secId));' +
     'var b=document.getElementById("badge-"+secId+"-"+res.i);if(b){' +
-    'var cls="good";var txt=res.status+" · "+res.ms+"ms";' +
-    'if(!res.ok){cls="bad";txt=res.status?("HTTP "+res.status):"失败";}else if(!res.json){cls="warn";}' +
-    'b.className="badge "+cls;b.textContent=txt;if(res.error)b.title=res.error;' +
+    'b.className="badge "+v.cls;b.textContent=v.txt;if(res.error)b.title=res.error;' +
     '}' +
+    'var c=document.getElementById("card-"+secId+"-"+res.i);' +
+    'if(c){c.classList.remove("ok","warn","fail");c.classList.add(res.ok&&res.json?"ok":(res.ok?"warn":"fail"));}' +
     '});' +
+    'updateStats(secId);' +
     'toast("测速 "+Math.min(ids.length,pending.length+part.length)+"/"+ids.length);step();' +
     '}).catch(function(e){toast("测速请求失败");step();});' +
     '}' +
@@ -706,7 +770,11 @@ function editorHtml() {
     'var f=urlFieldOf(sec);var ids=[];' +
     'state.data[sec.id].forEach(function(it,i){if(String(it[f.k]||"").trim())ids.push(i);});' +
     'if(!ids.length){toast("没有可测的地址");return;}' +
-    'toast("测速中...");probe(sec.id,ids,function(){toast("测速完成");});' +
+    'toast("测速中...");probe(sec.id,ids,function(){' +
+    'var fails=0;state.data[sec.id].forEach(function(it){if(it.__result&&!it.__result.ok)fails++;});' +
+    'updateStats(sec.id);' +
+    'toast(fails?("测速完成："+fails+" 条失败，点「只看失败」集中处理"):"测速完成，全部可访问");' +
+    '});' +
     '}' +
     'function download(){' +
     'var text=JSON.stringify(toConfig(),null,2);' +
@@ -739,6 +807,9 @@ function editorHtml() {
     '}catch(err){toast("JSON 解析失败："+err.message);}return;' +
     '}' +
     'if(act==="detect"){var db=$("detectBox");db.style.display=db.style.display==="block"?"none":"block";return;}' +
+    'if(act==="help"){var hb=$("helpBox");hb.style.display=hb.style.display==="block"?"none":"block";return;}' +
+    'if(act==="close-help"){$("helpBox").style.display="none";return;}' +
+    'if(act==="filter-fail"){failOnly[secId]=!failOnly[secId];render();return;}' +
     'if(act==="detect-add"){detectAdd();return;}' +
     'if(act==="close-repos"){$("reposBox").style.display="none";return;}' +
     'if(act==="repos-test"){probeRepos(repoList.map(function(r){return r.i;}));return;}' +
