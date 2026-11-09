@@ -65,13 +65,23 @@ function corsHeaders() {
   };
 }
 
+function cacheControlHeader(ttl) {
+  // no-transform: 告诉 Cloudflare 边缘和中间代理不要对响应做压缩 / 编码变换。
+  // TVBOX 用的 OkHttp 对 Brotli 支持不好，若 Cloudflare 自动 brotli 压缩会导致
+  // App 收到乱码报"解析配置失败"。加 no-transform 让中间层原样返回。
+  return `public, max-age=${ttl}, no-transform`;
+}
+
 function jsonResponse(data, status = 200) {
-  return new Response(JSON.stringify(data, null, 2) + '\n', {
+  const body = JSON.stringify(data, null, 2) + '\n';
+  const bytes = new TextEncoder().encode(body);
+  return new Response(bytes, {
     status,
     headers: {
       ...corsHeaders(),
       'content-type': 'application/json; charset=utf-8',
-      'cache-control': 'no-store',
+      'content-length': String(bytes.length),
+      'cache-control': 'no-store, no-transform',
     },
   });
 }
@@ -164,12 +174,14 @@ export default {
 
     const hit = await cache.match(cacheKey);
     if (hit) {
+      const cl = hit.headers.get('content-length') || String((await hit.arrayBuffer()).byteLength);
       return new Response(request.method === 'HEAD' ? null : await hit.arrayBuffer(), {
         status: 200,
         headers: {
           ...corsHeaders(),
           'content-type': hit.headers.get('content-type') || type,
-          'cache-control': `public, max-age=${ttl}`,
+          'content-length': cl,
+          'cache-control': cacheControlHeader(ttl),
           'x-source': 'cache',
         },
       });
@@ -184,14 +196,16 @@ export default {
           ...corsHeaders(),
           'content-type': type,
           'content-length': String(bytes.byteLength),
-          'cache-control': `public, max-age=${ttl}`,
+          'cache-control': cacheControlHeader(ttl),
           'x-source': 'upstream',
         },
       });
+      // 缓存时保留 content-length，避免命中时丢失
       await cache.put(cacheKey, new Response(bytes, {
         headers: {
           'content-type': type,
-          'cache-control': `public, max-age=${ttl}`,
+          'content-length': String(bytes.byteLength),
+          'cache-control': cacheControlHeader(ttl),
         },
       }));
       return response;
