@@ -126,9 +126,25 @@ if (fs.existsSync(CAIJI_FILE)) {
   }
 }
 
+// 3.5 网盘站点（玩偶/多多/夸克/推送等，需 spider JAR 支持 csp_* 类）
+const PAN_FILE = path.join(ROOT, 'config', 'pan-sites.json');
+let panCount = 0;
+if (fs.existsSync(PAN_FILE)) {
+  for (const s of JSON.parse(fs.readFileSync(PAN_FILE, 'utf8'))) {
+    if (!s.key) s.key = 'pan_' + crypto.createHash('md5').update(String(s.name)).digest('hex').slice(0, 8);
+    let unique = s.key, n = 2;
+    while (usedKeys.has(unique)) unique = s.key + '_' + n++;
+    usedKeys.add(unique);
+    s.key = unique;
+    sites.push(s);
+    panCount++;
+  }
+}
+
 // 3. 输出配置
-// 默认不带 spider：站点全是 drpy JS 规则，JAR 只会拖慢配置拉取。
+// 默认不带 spider；存在 csp_* 网盘站时自动附带网盘 JAR（FongMi dex 格式）。
 const includeSpider = process.env.INCLUDE_SPIDER === '1';
+const needSpider = includeSpider || sites.some((s) => String(s.api || '').startsWith('csp_'));
 
 // 解析接口（config/jiexi.json，由 sync-yszzq.mjs 生成）
 // TVBox parses 格式：type 0 = 网页嗅探解析（?url= 形式）
@@ -151,8 +167,14 @@ const config = {
   ads: [],
   wallpaper: '',
 };
-if (includeSpider && fs.existsSync(JAR_PATH)) {
-  config.spider = fileUrl('spider/pg.jar') + ';md5;' + md5(JAR_PATH);
+if (needSpider) {
+  const PAN_JAR_REL = 'output/jar/a94b59e118b0c15945abe22c7a9e34bf.jar';
+  const PAN_JAR = path.join(ROOT, PAN_JAR_REL);
+  if (fs.existsSync(PAN_JAR)) {
+    config.spider = fileUrl(PAN_JAR_REL) + ';md5;' + md5(PAN_JAR);
+  } else if (includeSpider && fs.existsSync(JAR_PATH)) {
+    config.spider = fileUrl('spider/pg.jar') + ';md5;' + md5(JAR_PATH);
+  }
 }
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
