@@ -13,6 +13,8 @@
  *     支持单条「合并/载入」与「合并全部」（按 key/api/url 去重）
  *   - 合并导入：任意单仓 JSON 可合并进当前配置而不替换
  *   - 制作采集站：粘贴 maccms 接口地址，/api/detect 自动探测 XML/JSON 类型后生成条目
+ *   - 同步 GitHub：fine-grained PAT 授权（仅存浏览器 localStorage），
+ *     /api/github/push 代理调 Contents API 提交；可选「保存时自动同步」
  *
  * 部署前必须设置环境变量 PASSWORD（Worker → Settings → Variables and Secrets）。
  * 可选 AUTH_SECRET：登录 Cookie 的签名密钥，不设则用 PASSWORD。
@@ -331,6 +333,7 @@ function editorHtml() {
     '<a class="link" href="' + DEFAULT_CONFIG_URL + '" target="_blank" rel="noopener">&gt;&gt;&gt; 【TVBOX最新接口获取】</a>' +
     '</div><div class="head-acts">' +
     '<button data-act="help">使用说明</button>' +
+    '<button data-act="github">同步GitHub</button>' +
     '<button data-act="detect">制作采集站</button>' +
     '<button data-act="import">导入</button><button data-act="export">导出</button>' +
     '</div></div>' +
@@ -387,6 +390,7 @@ function editorHtml() {
     '<b>导入</b>：粘贴或读取单仓 / 多仓链接。多仓会自动拆解成线路列表，可批量测速后「合并全部」（自动去重）或单条「合并 / 载入」；「导入(合并)」把别人的配置追加进来不覆盖现有内容。<br>' +
     '<b>制作采集站</b>：粘贴 maccms 采集接口地址（形如 https://域名/api.php/provide/vod），自动请求 ?ac=list 探测，按真实响应判定类型（0=XML / 1=JSON）并生成条目。<br>' +
     '<b>导出</b>：下载当前配置 JSON。发布方式：覆盖仓库 output/self.json 后提交推送。<br>' +
+    '<b>同步GitHub</b>：填入 fine-grained Token（只需 Contents 读写）后，一键把当前配置提交到你的仓库；勾选「点保存时自动同步」后，每次点保存都会自动推送。Token 只存在你自己浏览器里。<br>' +
     '<b>清空</b>：删除全部分区内容，不可恢复，慎用。' +
     '<h4>分区说明</h4>' +
     '点播源：影视站点，type 3=JS 规则（本仓库自托管）、0=XML 采集、1=JSON 采集；' +
@@ -394,6 +398,26 @@ function editorHtml() {
     '解析地址：VIP 视频解析接口，播放时拼接在视频链接前；' +
     'VIP解析标识 / IJK配置 / 解析广告过滤 / 壁纸 / 自定义爬虫：高级选项，一般保持默认或留空。' +
     '<div class="inline" style="margin-top:10px"><button data-act="close-help">收起说明</button></div>' +
+    '</div>' +
+
+    '<div class="import-box" id="githubBox">' +
+    '<label>GitHub 授权：使用 fine-grained Personal Access Token（只需目标仓库 Contents 读写权限）。Token 只保存在你自己的浏览器里，经本 Worker 转发给 GitHub，不落任何日志。</label>' +
+    '<div class="inline"><input id="ghToken" type="password" spellcheck="false" placeholder="github_pat_… 或 ghp_…">' +
+    '<button data-act="github-how">如何获取</button></div>' +
+    '<div class="hint" id="ghHow" style="display:none">GitHub 网页 → 头像 → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token：Repository access 选 Only select repositories 并选中 tvbox-diy，Permissions → Contents 设为 Read and write，生成后粘贴到上方输入框。经典 Token 勾 repo 权限也可以。</div>' +
+    '<div class="inline" style="margin-top:8px">' +
+    '<input id="ghOwner" spellcheck="false" placeholder="所有者" style="max-width:140px">' +
+    '<input id="ghRepo" spellcheck="false" placeholder="仓库名" style="max-width:160px">' +
+    '<input id="ghBranch" spellcheck="false" placeholder="分支" style="max-width:90px">' +
+    '<input id="ghPath" spellcheck="false" placeholder="文件路径" style="flex:1">' +
+    '</div>' +
+    '<div class="inline" style="margin-top:10px">' +
+    '<label style="margin:0;font-weight:400"><input type="checkbox" id="ghAuto" style="width:auto;margin-right:4px">点「保存」时自动同步</label>' +
+    '<button class="btn-primary" data-act="github-push">立即同步到 GitHub</button>' +
+    '<button data-act="github-save">保存设置</button>' +
+    '<button data-act="close-github">关闭</button>' +
+    '</div>' +
+    '<div class="hint" id="ghStatus"></div>' +
     '</div>' +
 
     '</div><div class="toast" id="toast"></div>' +
@@ -592,6 +616,35 @@ function editorHtml() {
     'if(String(d.wallpaper).trim())out.wallpaper=d.wallpaper;' +
     'if(String(d.spider).trim())out.spider=d.spider;' +
     'return out;' +
+    '}' +
+    'var GH_LS="tvbox_editor_github_v1";' +
+    'function ghFill(){' +
+    'var d={};try{d=JSON.parse(localStorage.getItem(GH_LS)||"{}");}catch(e){}' +
+    '$("ghToken").value=d.token||"";$("ghOwner").value=d.owner||"superhe2004";' +
+    '$("ghRepo").value=d.repo||"tvbox-diy";$("ghBranch").value=d.branch||"main";' +
+    '$("ghPath").value=d.path||"output/self.json";$("ghAuto").checked=!!d.auto;' +
+    '}' +
+    'function ghSave(){' +
+    'var d={token:$("ghToken").value.trim(),owner:$("ghOwner").value.trim(),repo:$("ghRepo").value.trim(),branch:$("ghBranch").value.trim()||"main",path:$("ghPath").value.trim()||"output/self.json",auto:$("ghAuto").checked};' +
+    'localStorage.setItem(GH_LS,JSON.stringify(d));return d;' +
+    '}' +
+    'function ghPush(){' +
+    'var d=ghSave();' +
+    'if(!d.token){$("githubBox").style.display="block";$("ghStatus").textContent="请先填写 Token 并保存设置";return;}' +
+    '$("ghStatus").textContent="同步中...";' +
+    'fetch("/api/github/push",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({' +
+    'token:d.token,owner:d.owner,repo:d.repo,branch:d.branch,path:d.path,' +
+    'message:"chore: 编辑器同步 "+d.path+" "+new Date().toLocaleString(),' +
+    'content:JSON.stringify(toConfig(),null,2)+"\\n"' +
+    '})}).then(function(r){return r.json();}).then(function(j){' +
+    'if(j.ok){' +
+    '$("ghStatus").innerHTML="✓ 已同步 "+(j.commitUrl?("<a href=\\""+j.commitUrl+"\\" target=\\"_blank\\" rel=\\"noopener\\" style=\\"color:#2da44e\\">查看提交</a>"):"");' +
+    'toast("已同步到 GitHub");' +
+    '}else{$("ghStatus").textContent="同步失败："+(j.error||"");toast("同步失败，详见面板");}' +
+    '}).catch(function(e){$("ghStatus").textContent="请求失败："+e.message;});' +
+    '}' +
+    'function ghAutoPush(){' +
+    'try{var d=JSON.parse(localStorage.getItem(GH_LS)||"{}");if(d.auto&&d.token){$("githubBox").style.display="block";ghFill();ghPush();}}catch(e){}' +
     '}' +
     'function fromConfig(cfg){' +
     'if(cfg&&Array.isArray(cfg.urls)){showRepos(cfg.urls);return false;}' +
@@ -792,7 +845,7 @@ function editorHtml() {
     'if(act==="tab"){state.tab=secId;state.mode="form";render();return;}' +
     'if(act==="mode-form"){state.mode="form";render();return;}' +
     'if(act==="mode-raw"){state.mode="raw";render();return;}' +
-    'if(act==="save"){persist();toast("已保存到浏览器缓存");return;}' +
+    'if(act==="save"){persist();toast("已保存到浏览器缓存");ghAutoPush();return;}' +
     'if(act==="clear"){if(confirm("确定清空全部配置？此操作不可恢复。")){state.data=emptyData();persist();render();toast("已清空");}return;}' +
     'if(act==="export"){download();return;}' +
     'if(act==="import"){var box=$("importBox");box.style.display=box.style.display==="block"?"none":"block";return;}' +
@@ -810,6 +863,11 @@ function editorHtml() {
     'if(act==="help"){var hb=$("helpBox");hb.style.display=hb.style.display==="block"?"none":"block";return;}' +
     'if(act==="close-help"){$("helpBox").style.display="none";return;}' +
     'if(act==="filter-fail"){failOnly[secId]=!failOnly[secId];render();return;}' +
+    'if(act==="github"){var gb=$("githubBox");var gshow=gb.style.display!=="block";gb.style.display=gshow?"block":"none";if(gshow)ghFill();return;}' +
+    'if(act==="github-how"){var gh=$("ghHow");gh.style.display=gh.style.display==="none"?"block":"none";return;}' +
+    'if(act==="github-save"){ghSave();toast("GitHub 设置已保存");return;}' +
+    'if(act==="github-push"){ghPush();return;}' +
+    'if(act==="close-github"){$("githubBox").style.display="none";return;}' +
     'if(act==="detect-add"){detectAdd();return;}' +
     'if(act==="close-repos"){$("reposBox").style.display="none";return;}' +
     'if(act==="repos-test"){probeRepos(repoList.map(function(r){return r.i;}));return;}' +
@@ -973,6 +1031,62 @@ export default {
         return jsonResponse({ ok: false, error: aborted ? '超时' : String((error && error.message) || error), ms: Date.now() - startedAt });
       } finally {
         clearTimeout(timer);
+      }
+    }
+
+    if (path === '/api/github/push') {
+      // 代理推送到 GitHub Contents API：Token 只经手本 Worker，不落日志
+      if (request.method !== 'POST') return jsonResponse({ ok: false, error: '仅支持 POST' }, 405);
+      let body;
+      try { body = await request.json(); } catch { return jsonResponse({ ok: false, error: '请求格式错误' }, 400); }
+      const token = String((body && body.token) || '').trim();
+      const owner = String((body && body.owner) || '').trim();
+      const repo = String((body && body.repo) || '').trim();
+      const branch = String((body && body.branch) || 'main').trim();
+      const filePath = String((body && body.path) || '').trim();
+      const content = String((body && body.content) || '');
+      const message = String((body && body.message) || 'chore: 通过编辑器同步配置').slice(0, 200);
+      if (!token || !owner || !repo || !filePath) {
+        return jsonResponse({ ok: false, error: '缺少 Token、仓库或文件路径' }, 400);
+      }
+      if (!/^[A-Za-z0-9_.-]+$/.test(owner) || !/^[A-Za-z0-9_.-]+$/.test(repo)) {
+        return jsonResponse({ ok: false, error: '仓库名格式不正确' }, 400);
+      }
+      if (filePath.startsWith('/') || filePath.split('/').some((s) => s === '..' || s === '.')) {
+        return jsonResponse({ ok: false, error: '文件路径不合法' }, 400);
+      }
+      const apiPath = filePath.split('/').map(encodeURIComponent).join('/');
+      const api = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${apiPath}`;
+      const headers = {
+        authorization: 'Bearer ' + token,
+        accept: 'application/vnd.github+json',
+        'user-agent': 'TVBox-Editor-Sync/1.0',
+        'x-github-api-version': '2022-11-28',
+      };
+      try {
+        // 先取现有文件 sha（更新时必需；404 表示新建）
+        let sha;
+        const getRes = await fetch(api + '?ref=' + encodeURIComponent(branch), { headers });
+        if (getRes.ok) {
+          const info = await getRes.json();
+          sha = info.sha;
+        } else if (getRes.status !== 404) {
+          return jsonResponse({ ok: false, error: '读取仓库失败 HTTP ' + getRes.status + '（检查 Token 权限与仓库名）' }, 502);
+        }
+        const putBody = { message, content: btoa(unescape(encodeURIComponent(content))), branch };
+        if (sha) putBody.sha = sha;
+        const putRes = await fetch(api, {
+          method: 'PUT',
+          headers: { ...headers, 'content-type': 'application/json' },
+          body: JSON.stringify(putBody),
+        });
+        const putJson = await putRes.json().catch(() => ({}));
+        if (!putRes.ok) {
+          return jsonResponse({ ok: false, error: '推送失败 HTTP ' + putRes.status + '：' + String(putJson.message || '').slice(0, 150) }, 502);
+        }
+        return jsonResponse({ ok: true, commitUrl: (putJson.commit && putJson.commit.html_url) || '' });
+      } catch (error) {
+        return jsonResponse({ ok: false, error: '请求 GitHub 失败：' + String((error && error.message) || error).slice(0, 120) }, 502);
       }
     }
 
