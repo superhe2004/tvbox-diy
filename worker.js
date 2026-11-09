@@ -33,6 +33,7 @@ const ROUTES = {
   '/shiguang.json': 'output/shiguang.json',
   '/self.json': 'output/self.json',
   '/lite.json': 'output/self-lite.json',
+  '/split.json': 'output/split.json',
   '/health.json': 'output/health.json',
   '/cang.json': 'cang.json',
 };

@@ -1,0 +1,957 @@
+{
+  "sites": [
+    {
+      "key": "drpy_js_啦啦DJ",
+      "name": "音频 | 啦啦DJ[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E5%95%A6%E5%95%A6DJ.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_清风DJ",
+      "name": "音频 | 清风DJ[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E6%B8%85%E9%A3%8EDJ.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_广播迷FM",
+      "name": "广播 | 广播迷FM[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E5%B9%BF%E6%92%AD%E8%BF%B7FM.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_蜻蜓FM",
+      "name": "广播 | 蜻蜓FM[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E8%9C%BB%E8%9C%93FM.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_i275听书",
+      "name": "听书 | i275听书[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/i275%E5%90%AC%E4%B9%A6.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_爱上你听书网",
+      "name": "听书 | 爱上你听书[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E7%88%B1%E4%B8%8A%E4%BD%A0%E5%90%AC%E4%B9%A6%E7%BD%91.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_博看听书",
+      "name": "听书 | 博看听书[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E5%8D%9A%E7%9C%8B%E5%90%AC%E4%B9%A6.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_海洋听书",
+      "name": "听书 | 海洋听书[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E6%B5%B7%E6%B4%8B%E5%90%AC%E4%B9%A6.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_六月听书",
+      "name": "听书 | 六月听书[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E5%85%AD%E6%9C%88%E5%90%AC%E4%B9%A6.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_有声小说",
+      "name": "听书 | 有声小说[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E6%9C%89%E5%A3%B0%E5%B0%8F%E8%AF%B4%E5%90%A7.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_播客",
+      "name": "聚合 | 播客[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E6%92%AD%E5%AE%A2.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_短视频",
+      "name": "聚合 | 短视频[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E7%9F%AD%E8%A7%86%E9%A2%91.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_酷6网",
+      "name": "聚合 | 酷6网[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E9%85%B76%E7%BD%91.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_网易公版影像",
+      "name": "聚合 | 网易公版[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E7%BD%91%E6%98%93%E5%85%AC%E7%89%88%E5%BD%B1%E5%83%8F.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_爱车MV",
+      "name": "MV | 爱车MV[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E7%88%B1%E8%BD%A6MV.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_酷奇MV",
+      "name": "MV | 酷奇[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E9%85%B7%E5%A5%87MV.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 0
+    },
+    {
+      "key": "drpy_js_爱看机器人",
+      "name": "影视 | 爱看机器人[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E7%88%B1%E7%9C%8B%E6%9C%BA%E5%99%A8%E4%BA%BA.js",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_ikanbot2",
+      "name": "影视 | 爱看机器人2[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/ikanbot2.js",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_ikanbot3",
+      "name": "影视 | 爱看机器人3[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/ikanbot3.js",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_jsapi2",
+      "name": "影视 | 百度测试[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/jsapi2.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_139影视",
+      "name": "影视 | 139影视[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/139%E5%BD%B1%E8%A7%86.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_348电影网",
+      "name": "影视 | 348电影网[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/348%E7%94%B5%E5%BD%B1%E7%BD%91.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_4K电影网",
+      "name": "影视 | 4K电影网[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/4K%E7%94%B5%E5%BD%B1%E7%BD%91.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_8号影院",
+      "name": "影视 | 8号影院[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/8%E5%8F%B7%E5%BD%B1%E9%99%A2.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_JangoIndex",
+      "name": "影视 | JangoIndex[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/JangoIndex.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_NY影院",
+      "name": "影视 | NY影院[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/NY%E5%BD%B1%E9%99%A2.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_被窝电影",
+      "name": "影视 | 被窝电影[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E8%A2%AB%E7%AA%9D%E7%94%B5%E5%BD%B1.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_厂长资源",
+      "name": "影视 | 厂长资源[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E5%8E%82%E9%95%BF%E8%B5%84%E6%BA%90.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_楚门影院",
+      "name": "影视 | 楚门影院[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E6%A5%9A%E9%97%A8%E5%BD%B1%E9%99%A2.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_大米星球",
+      "name": "影视 | 大米星球[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E5%A4%A7%E7%B1%B3%E6%98%9F%E7%90%83.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_飞兔影视",
+      "name": "影视 | 飞兔影视[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E9%A3%9E%E5%85%94%E5%BD%B1%E8%A7%86.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_海兔影院",
+      "name": "影视 | 海兔影院[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E6%B5%B7%E5%85%94%E5%BD%B1%E9%99%A2.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_花猫TV",
+      "name": "影视 | 花猫TV[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E8%8A%B1%E7%8C%ABTV.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_花屋影院",
+      "name": "影视 | 花屋影院[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E8%8A%B1%E5%B1%8B%E5%BD%B1%E9%99%A2.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "drpy_js_开眼视频",
+      "name": "影视 | 开眼视频[js]",
+      "type": 3,
+      "api": "https://tvbox.kyovpn.dpdns.org/lib/drpy.js",
+      "ext": "https://tvbox.kyovpn.dpdns.org/js/%E5%BC%80%E7%9C%BC%E8%A7%86%E9%A2%91.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "csp_Config",
+      "name": "😊配置┃中心",
+      "type": 3,
+      "api": "csp_Config",
+      "searchable": 0,
+      "changeable": 0
+    },
+    {
+      "key": "csp_PanShare",
+      "name": "😊我的┃网盘",
+      "type": 3,
+      "api": "csp_PanShare",
+      "searchable": 0,
+      "changeable": 0
+    },
+    {
+      "key": "csp_Pg夸克",
+      "name": "😏PG┃夸克",
+      "type": 3,
+      "api": "csp_PgDouban",
+      "searchable": 1,
+      "changeable": 1,
+      "ext": {
+        "filters": "https://bitbucket.org/guot55/ygbh/raw/main/pro/json/douban.json",
+        "channel": "PanjClub,guoman4K,alyp_1"
+      }
+    },
+    {
+      "key": "csp_Pg百度",
+      "name": "😌PG┃百度",
+      "type": 3,
+      "api": "csp_PgDouban",
+      "searchable": 1,
+      "changeable": 1,
+      "ext": {
+        "filters": "https://bitbucket.org/guot55/ygbh/raw/main/pro/json/douban.json",
+        "channel": "BaiduCloudDisk,Baidu_Netdisk,bdwpzhpd"
+      }
+    },
+    {
+      "key": "csp_Pg天翼",
+      "name": "🙂PG┃天翼",
+      "type": 3,
+      "api": "csp_PgDouban",
+      "searchable": 1,
+      "changeable": 1,
+      "ext": {
+        "filters": "https://bitbucket.org/guot55/ygbh/raw/main/pro/json/douban.json",
+        "channel": "cloudtianyi,txtyzy,peccxinpd,yunpan189,tianyirigeng,tyypzhpd"
+      }
+    },
+    {
+      "key": "csp_Pg阿里",
+      "name": "🤕PG┃阿里",
+      "type": 3,
+      "api": "csp_PgDouban",
+      "searchable": 1,
+      "changeable": 1,
+      "ext": {
+        "filters": "https://bitbucket.org/guot55/ygbh/raw/main/pro/json/douban.json",
+        "channel": "shareAliyun,zaihuayun"
+      }
+    },
+    {
+      "key": "csp_Pg移动",
+      "name": "😕PG┃移动",
+      "type": 3,
+      "api": "csp_PgDouban",
+      "searchable": 1,
+      "changeable": 1,
+      "ext": {
+        "filters": "https://bitbucket.org/guot55/ygbh/raw/main/pro/json/douban.json",
+        "channel": "yunpan139,ydypzyfx"
+      }
+    },
+    {
+      "key": "夸克推送",
+      "name": "👊夸克┃推送",
+      "type": 4,
+      "api": "https://so.yinpai.xyz/api.php?type=quark"
+    },
+    {
+      "key": "百度推送",
+      "name": "✊百度┃推送",
+      "type": 4,
+      "api": "https://so.yinpai.xyz/api.php?type=baidu"
+    },
+    {
+      "key": "UC推送",
+      "name": "☝️优熙┃推送",
+      "type": 4,
+      "api": "https://so.yinpai.xyz/api.php?type=uc"
+    },
+    {
+      "key": "天翼推送",
+      "name": "✋天翼┃推送",
+      "type": 4,
+      "api": "https://so.yinpai.xyz/api.php?type=tianyi"
+    },
+    {
+      "key": "123推送",
+      "name": "✌️123┃推送",
+      "type": 4,
+      "api": "https://so.yinpai.xyz/api.php?type=123"
+    },
+    {
+      "key": "移动推送",
+      "name": "👍移动┃推送",
+      "type": 4,
+      "api": "https://so.yinpai.xyz/api.php?type=mobile"
+    },
+    {
+      "key": "csp_BixBiy",
+      "name": "😗彼心┃网盘",
+      "type": 3,
+      "api": "csp_BixBiy",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "style": {
+        "type": "list"
+      },
+      "ext": {
+        "sites": "https://www.bixbiy.com",
+        "proxy": "noproxy",
+        "classes": "https://bitbucket.org/guot55/ygbh/raw/main/pro/json/bixbiy.json"
+      }
+    },
+    {
+      "key": "csp_Leijing",
+      "name": "🐳雷鲸┃网盘",
+      "type": 3,
+      "api": "csp_Leijing",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "style": {
+        "type": "list"
+      },
+      "ext": {
+        "sites": "https://www.leijing.xyz,https://www.leijing1.com,https://leijing.xyz,https://leijing1.com",
+        "proxy": "noproxy",
+        "classes": "https://bitbucket.org/guot55/ygbh/raw/main/pro/json/leijing.json"
+      }
+    },
+    {
+      "key": "csp_Wogg",
+      "name": "😁玩偶┃哥哥",
+      "type": 3,
+      "api": "csp_Wogg",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "ext": {
+        "sites": "https://wogg.xxooo.cf",
+        "proxy": "noproxy"
+      }
+    },
+    {
+      "key": "csp_Guazi",
+      "name": "😳瓜子┃优质",
+      "type": 3,
+      "api": "csp_Guazi",
+      "searchable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "csp_DuanJu",
+      "name": "😵短剧┃日更",
+      "type": 3,
+      "api": "csp_DuanJu",
+      "searchable": 1,
+      "changeable": 1
+    },
+    {
+      "key": "短剧AI",
+      "name": "🤔短剧┃AI",
+      "type": 3,
+      "api": "csp_DuanJuCen",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": {
+        "classes": "https://bitbucket.org/guot55/ygbh/raw/main/pro/json/duanjucen.json"
+      }
+    },
+    {
+      "key": "csp_PanSou",
+      "name": "🥺盘搜┃搜索",
+      "type": 3,
+      "api": "csp_PanSou",
+      "searchable": 1,
+      "changeable": 1,
+      "ext": {
+        "api": "https://so.252035.xyz",
+        "limit": 3
+      }
+    },
+    {
+      "key": "欧歌网盘",
+      "name": "🤪欧歌┃网盘",
+      "type": 3,
+      "api": "csp_Wobg",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "ext": {
+        "sites": "https://woog.nxog.eu.org",
+        "proxy": "noproxy"
+      }
+    },
+    {
+      "key": "蜡笔网盘",
+      "name": "🤩蜡笔┃网盘",
+      "type": 3,
+      "api": "csp_Wobg",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "ext": {
+        "sites": "https://feimao666.fun",
+        "proxy": "noproxy"
+      }
+    },
+    {
+      "key": "二小网盘",
+      "name": "🤬二小┃网盘",
+      "type": 3,
+      "api": "csp_Wobg",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "ext": {
+        "sites": "http://2xiaopan.fun",
+        "proxy": "noproxy"
+      }
+    },
+    {
+      "key": "木偶网盘",
+      "name": "🙄木偶┃网盘",
+      "type": 3,
+      "api": "csp_Wobg",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "ext": {
+        "sites": "https://www.muou.site",
+        "proxy": "noproxy"
+      }
+    },
+    {
+      "key": "至臻网盘",
+      "name": "🤫至臻┃网盘",
+      "type": 3,
+      "api": "csp_Wobg",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "ext": {
+        "sites": "https://mihdr.top",
+        "proxy": "noproxy"
+      }
+    },
+    {
+      "key": "狐狸磁力",
+      "name": "🧲狐狸┃磁力",
+      "type": 3,
+      "api": "csp_XBPQ",
+      "ext": "https://bitbucket.org/guot55/ygbh/raw/main/pro/xb/狐狸磁力.json",
+      "jar": "https://bitbucket.org/guot55/ygbh/raw/main/pro/jar/xbpq.jar"
+    },
+    {
+      "key": "夸克短剧",
+      "name": "🌽夸克┃短剧",
+      "type": 3,
+      "api": "csp_XBPQ",
+      "ext": "https://bitbucket.org/guot55/ygbh/raw/main/pro/xb/夸克短剧.json",
+      "jar": "https://bitbucket.org/guot55/ygbh/raw/main/pro/jar/xbpq.jar"
+    },
+    {
+      "key": "夸克资源站",
+      "name": "🎁夸克┃资源",
+      "type": 3,
+      "api": "csp_XBPQ",
+      "ext": "https://bitbucket.org/guot55/ygbh/raw/main/pro/xb/夸克资源站.json",
+      "jar": "https://bitbucket.org/guot55/ygbh/raw/main/pro/jar/xbpq.jar"
+    },
+    {
+      "key": "厂长资源",
+      "name": "🙀厂长┃资源",
+      "type": 3,
+      "api": "csp_XBPQ",
+      "ext": "https://bitbucket.org/guot55/ygbh/raw/main/pro/xb/厂长资源.json",
+      "jar": "https://bitbucket.org/guot55/ygbh/raw/main/pro/jar/xbpq.jar"
+    },
+    {
+      "key": "爱看资源网",
+      "name": "🐸爱看┃网盘",
+      "type": 3,
+      "api": "https://bitbucket.org/guot55/ygbh/raw/main/pro/js/drpy2.min.js",
+      "ext": "https://bitbucket.org/guot55/ygbh/raw/main/pro/js/爱看资源网.js"
+    },
+    {
+      "key": "夸克影视",
+      "name": "💕夸克┃影视",
+      "type": 3,
+      "api": "https://bitbucket.org/guot55/ygbh/raw/main/pro/js/drpy2.min.js",
+      "ext": "https://bitbucket.org/guot55/ygbh/raw/main/pro/js/夸克影视.js"
+    },
+    {
+      "key": "AList",
+      "name": "😇网盘┃Alist",
+      "type": 3,
+      "api": "csp_AList",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "timeout": 60,
+      "playerType": 2,
+      "ext": "https://bitbucket.org/guot55/ygbh/raw/main/pro/json/alist.json"
+    },
+    {
+      "key": "push_agent",
+      "name": "😋链接┃推送",
+      "type": 3,
+      "api": "csp_Push",
+      "searchable": 0,
+      "changeable": 0,
+      "timeout": 60
+    }
+  ],
+  "lives": [],
+  "parses": [
+    {
+      "name": "星夜资源站播放解析地址",
+      "type": 0,
+      "url": "https://xyzybfq.com/?url="
+    },
+    {
+      "name": "看看资源解析接口",
+      "type": 0,
+      "url": "https://jiexi.f-1.cc/index.php?url="
+    },
+    {
+      "name": "厂长资源解析接口",
+      "type": 0,
+      "url": "https://svip.czzyplay.com/?url="
+    },
+    {
+      "name": "新芒果资源网解析接口",
+      "type": 0,
+      "url": "https://svip.mgzym3u8.com/?url="
+    },
+    {
+      "name": "大众资源解析地址",
+      "type": 0,
+      "url": "https://api.dzzybf.com/m3u8/?url="
+    },
+    {
+      "name": "西瓜资源M3U8解析接口",
+      "type": 0,
+      "url": "https://svip.xgzyplay.com/?url="
+    },
+    {
+      "name": "无水印资源网解析播放接口",
+      "type": 0,
+      "url": "https://wsyzy.top/m3u8/?url="
+    },
+    {
+      "name": "优质资源库DP播放器解析接口",
+      "type": 0,
+      "url": "https://vip.zykbf.com/?url="
+    },
+    {
+      "name": "黑料资源网无广告解析接口",
+      "type": 0,
+      "url": "https://www.heiliaozyjx.com/?url="
+    },
+    {
+      "name": "虎牙资源M3u8解析接口",
+      "type": 0,
+      "url": "https://huyajx.com/play?url="
+    },
+    {
+      "name": "789免费无广告解析接口",
+      "type": 0,
+      "url": "https://jx.789jiexi.com/?url="
+    },
+    {
+      "name": "猫眼资源站无广告解析",
+      "type": 0,
+      "url": "https://jx.maoyanjx.top/player/?url="
+    },
+    {
+      "name": "天涯影视资源网M3U8资源专属解析",
+      "type": 0,
+      "url": "https://tyyszywjx.com/?url="
+    },
+    {
+      "name": "爱奇艺资源站M3U8解析接口",
+      "type": 0,
+      "url": "https://www.iqiyizyjx.com/?url="
+    },
+    {
+      "name": "电影天堂m3u8解析接口",
+      "type": 0,
+      "url": "https://vip.dyttzyplay.com/?url="
+    },
+    {
+      "name": "maccmspro官方播放解析器",
+      "type": 0,
+      "url": "https://jx.pingguocms.com/dplayer/?url="
+    },
+    {
+      "name": "如意资源网M3U8视频解析",
+      "type": 0,
+      "url": "https://ryplayer.com?url="
+    },
+    {
+      "name": "金鹰资源网M3u8解析接口",
+      "type": 0,
+      "url": "https://hd.iapijy.com/play?url="
+    },
+    {
+      "name": "魔都动漫资源采集网M3U8解析接口",
+      "type": 0,
+      "url": "https://jiexi.modujx01.com/?url="
+    },
+    {
+      "name": "鸭鸭（丫丫）资源网加速解析播放器",
+      "type": 0,
+      "url": "https://jx.yayazy.cc/m3u8/?url="
+    },
+    {
+      "name": "牛牛资源网P2P商业加速解析播放器",
+      "type": 0,
+      "url": "https://jiexi.niuniuzy.org/m3u8/?url="
+    },
+    {
+      "name": "玉兔资源网解析接口",
+      "type": 0,
+      "url": "https://yutujx.com/?url="
+    },
+    {
+      "name": "M1907云加速播放器",
+      "type": 0,
+      "url": "https://im1907.top/?jx="
+    },
+    {
+      "name": "虾米解析-全网最稳定解析接口",
+      "type": 0,
+      "url": "https://jx.xmflv.com/?url="
+    },
+    {
+      "name": "七哥解析免费VIP剧场解析接口",
+      "type": 0,
+      "url": "https://jx.nnxv.cn/tv.php?url="
+    },
+    {
+      "name": "m3u8在线播放器",
+      "type": 0,
+      "url": "https://m3u8-player.com/"
+    },
+    {
+      "name": "360资源站弹幕解析播放器（无广告 娱乐专用）",
+      "type": 0,
+      "url": "https://www.360jiexi.com/player/?url="
+    },
+    {
+      "name": "豪华资源网M3U8纯净视频播放器接口",
+      "type": 0,
+      "url": "https://hhzyjiexi.com/play/?url="
+    },
+    {
+      "name": "极速资源网M3U8播放器解析接口",
+      "type": 0,
+      "url": "https://jsjiexi.com/play/?url="
+    },
+    {
+      "name": "暴风资源网M3U8解析接口",
+      "type": 0,
+      "url": "https://bfzyplayer.com/player/?url="
+    },
+    {
+      "name": "速播资源M3U8纯净解析接口",
+      "type": 0,
+      "url": "https://subojiexi.com/play/?url="
+    },
+    {
+      "name": "大地资源网通用M3U8解析接口",
+      "type": 0,
+      "url": "https://play.dadiapi.com/watch?url="
+    },
+    {
+      "name": "奥斯卡资源站M3U8解析接口",
+      "type": 0,
+      "url": "https://aosikazy11.com/?url="
+    },
+    {
+      "name": "ikun资源网解析地址",
+      "type": 0,
+      "url": "https://www.ikdmjx.com/?url="
+    },
+    {
+      "name": "新浪资源M3U8视频解析",
+      "type": 0,
+      "url": "https://www.xinlangjiexi.com/m3u8/?url="
+    },
+    {
+      "name": "量子资源网M3U8视频解析",
+      "type": 0,
+      "url": "https://lziplayer.com/?url="
+    },
+    {
+      "name": "光速资源站M3U8国内P2P商业加速解析接口",
+      "type": 0,
+      "url": "https://www.gszyv.com/m3u8/?url="
+    },
+    {
+      "name": "盘古VIP视频解析接口",
+      "type": 0,
+      "url": "https://www.pangujiexi.com/pangu/?url="
+    },
+    {
+      "name": "无尽资源网M3U8专用解析接口",
+      "type": 0,
+      "url": "https://jx.wujinkk.com/dplayer/?url="
+    },
+    {
+      "name": "M3U8TV无广告无加密解析接口",
+      "type": 0,
+      "url": "https://jx.m3u8.tv/jiexi/?url="
+    },
+    {
+      "name": "盘古解析,老牌解析平台",
+      "type": 0,
+      "url": "https://www.pangujiexi.com/jiexi/?url="
+    },
+    {
+      "name": "DMPlayer免费解析播放器",
+      "type": 0,
+      "url": "https://dmplay.knowhub.vip/d?url="
+    },
+    {
+      "name": "非凡资源网m3u8解析接口",
+      "type": 0,
+      "url": "https://ffzyplayer.com/?url="
+    },
+    {
+      "name": "17kyun全能VIP视频解析接口",
+      "type": 0,
+      "url": "http://17kyun.com/api.php?url="
+    },
+    {
+      "name": "红牛P2P商业加速解析接口",
+      "type": 0,
+      "url": "https://www.hnjiexi.com/m3u8/?url="
+    },
+    {
+      "name": "1717云解析[需要代理]",
+      "type": 0,
+      "url": "https://www.1717yun.com/jiexi/?url="
+    }
+  ],
+  "flags": [],
+  "ads": [],
+  "wallpaper": "",
+  "spider": "https://tvbox.kyovpn.dpdns.org/output/jar/a94b59e118b0c15945abe22c7a9e34bf.jar;md5;a94b59e118b0c15945abe22c7a9e34bf"
+}

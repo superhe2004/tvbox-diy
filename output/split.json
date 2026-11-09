@@ -1,0 +1,88 @@
+{
+  "urls": [
+    {
+      "name": "【全量】308站 一次加载",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/self.json"
+    },
+    {
+      "name": "线路1 影视35站+网盘",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/split/part-01.json"
+    },
+    {
+      "name": "线路2 影视35站+网盘",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/split/part-02.json"
+    },
+    {
+      "name": "线路3 影视35站+网盘",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/split/part-03.json"
+    },
+    {
+      "name": "线路4 影视35站+网盘",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/split/part-04.json"
+    },
+    {
+      "name": "线路5 影视35站+网盘",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/split/part-05.json"
+    },
+    {
+      "name": "线路6 影视35站+网盘",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/split/part-06.json"
+    },
+    {
+      "name": "线路7 影视10站+网盘",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/split/part-07.json"
+    },
+    {
+      "name": "采集专线 55站+网盘",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/split/part-caiji.json"
+    },
+    {
+      "name": "【精简】纯采集 免引擎",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/self-lite.json"
+    },
+    {
+      "name": "动漫城📚单仓 27 站点",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/repo/e7e86b1e3b.json"
+    },
+    {
+      "name": "Clun📚单仓 101 站点",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/repo/9a03a6f714.json"
+    },
+    {
+      "name": "俊佬📚单仓 24 站点",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/repo/9f6c73836a.json"
+    },
+    {
+      "name": "心魔📚单仓 151 站点",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/repo/61b4d1f200.json"
+    },
+    {
+      "name": "小马📚单仓 62 站点",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/repo/c73a54e735.json"
+    },
+    {
+      "name": "寳盒📚单仓 77 站点",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/repo/5fd235a9d3.json"
+    },
+    {
+      "name": "挺好📚单仓 46 站点",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/repo/1e07741a22.json"
+    },
+    {
+      "name": "月光📚单仓 77 站点",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/repo/6e364f7bf9.json"
+    },
+    {
+      "name": "小凯📚单仓 28 站点",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/repo/82ff6df0a2.json"
+    },
+    {
+      "name": "CandyMu📚单仓 64 站点",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/repo/aeaac2d46e.json"
+    },
+    {
+      "name": "请勿贩卖📚单仓 19 站点",
+      "url": "https://tvbox.kyovpn.dpdns.org/output/repo/b6ea913ec0.json"
+    }
+  ]
+}
